@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "330339838229",
+    "project_id": "bookle-f6dc8",
+    "storage_bucket": "bookle-f6dc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330339838229:android:84b55e674a7dcb4e07a11c",
+        "android_client_info": {
+          "package_name": "com.example.bookle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330339838229-9rceoom71q1vskv7a95vf1pg8619nnjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC11D7oaIhWJkxwNKCyF8JA4LCpniIFcR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330339838229-9rceoom71q1vskv7a95vf1pg8619nnjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
