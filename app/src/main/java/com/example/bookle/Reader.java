@@ -1,93 +1,80 @@
 package com.example.bookle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 
-import com.example.bookle.databinding.ActivityMainBinding;
 import com.example.bookle.databinding.EreaderBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.slider.Slider;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /* E-reader section. Credit for bottom sheet dialog goes to Joseph Chege's tutorial on section.io */
 
 public class Reader extends AppCompatActivity {
-    EreaderBinding binding;
+    EreaderBinding ereaderBinding;
+    SharedPreferences sharedPref;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = EreaderBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
+        setContentView(ereaderBinding.getRoot());
+        ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
+        ereaderBinding.backButton.setOnClickListener(view -> finish());
 
-        Button mBottton = findViewById(R.id.options_bttn);
-        mBottton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });
+        sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
+        ereaderBinding.readerText.setTextSize(textsize);
 
-        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void showBottomSheetDialog() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.bottom_sheet);
+        SwitchCompat darkmodeswitch = bottomSheetDialog.findViewById(R.id.darkmode_switch);
 
-        LinearLayout copy = bottomSheetDialog.findViewById(R.id.copyLinearLayout);
-        LinearLayout share = bottomSheetDialog.findViewById(R.id.shareLinearLayout);
-        LinearLayout upload = bottomSheetDialog.findViewById(R.id.uploadLinearLayout);
-        LinearLayout download = bottomSheetDialog.findViewById(R.id.download);
-        LinearLayout delete = bottomSheetDialog.findViewById(R.id.delete);
+        AtomicBoolean darkmode = new AtomicBoolean(sharedPref.getBoolean(getString(R.string.darkmode), false));
+        darkmodeswitch.setChecked(darkmode.get());
+        darkmodeswitch.setOnCheckedChangeListener((compoundButton, b) -> {
+            darkmode.set(b);
+            sharedPref.edit().putBoolean(getString(R.string.darkmode), darkmode.get()).apply();
+            if (darkmode.get()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            bottomSheetDialog.dismiss();
+        });
 
-        copy.setOnClickListener(new View.OnClickListener() {
+        Slider discreteSlider = bottomSheetDialog.findViewById(R.id.discreteSlider);
+        float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
+        ereaderBinding.readerText.setTextSize(textsize);
+        float slidervalue = 100 - ((32f - textsize) * 5f);
+        discreteSlider.setValue(slidervalue);
+
+        discreteSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Copy is Clicked ", Toast.LENGTH_LONG).show();
+            public void onStartTrackingTouch(@NonNull Slider slider) {
+                // nothing necessary
+            }
+
+            @Override
+            public void onStopTrackingTouch(@NonNull Slider slider) {
+                float textsize = 32 - ((100 - slider.getValue())/5);
+                ereaderBinding.readerText.setTextSize(textsize);
+                sharedPref.edit().putFloat(getString(R.string.textsize), textsize).apply();
                 bottomSheetDialog.dismiss();
             }
         });
-
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Share is Clicked", Toast.LENGTH_LONG).show();
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Upload is Clicked", Toast.LENGTH_LONG).show();
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Download is Clicked", Toast.LENGTH_LONG).show();
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Delete is Clicked", Toast.LENGTH_LONG).show();
-                bottomSheetDialog.dismiss();
-            }
-        });
-
         bottomSheetDialog.show();
     }
+
+
 }

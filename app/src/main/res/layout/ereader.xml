@@ -13,7 +13,6 @@
         <Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
@@ -21,7 +20,7 @@
             android:id="@+id/options_bttn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:padding="5dp"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="end"
             android:background="@drawable/options" />
 
@@ -50,6 +49,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
+            android:id="@+id/reader_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="8dp"

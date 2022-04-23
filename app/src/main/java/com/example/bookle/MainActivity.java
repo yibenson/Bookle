@@ -1,8 +1,11 @@
 package com.example.bookle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,14 +22,13 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    DatabaseReference myRef;
-    String i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setDarkMode();
 
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,14 +83,13 @@ public class MainActivity extends AppCompatActivity {
          */
     }
 
-    private void updateData(String name, String lastname, String age) {
-        HashMap User = new HashMap();
-        User.put("firstName", name);
-        User.put("lastName", lastname);
-        User.put("age", age);
-        myRef = FirebaseDatabase.getInstance().getReference("Users");
-
+    public void setDarkMode() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
+        if (darkmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
-
-
 }
