@@ -12,4 +12,9 @@
     <color name="gray_200">#455a64</color>
     <color name="gray_100">#718792</color>
 
+    <color name="beau_blue">#CCD7E4</color>
+    <color name="terra_cotta">#D77A61</color>
+    <color name="gunmetal">#223843</color>
+
+
 </resources>

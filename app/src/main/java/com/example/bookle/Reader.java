@@ -2,17 +2,25 @@ package com.example.bookle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.bookle.databinding.EreaderBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.Slider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -21,17 +29,33 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
+    DatabaseReference databaseReference;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
         ereaderBinding.backButton.setOnClickListener(view -> finish());
+        ereaderBinding.appName.setOnClickListener(view -> finish());
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
+        databaseReference.child("testtext").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+                // nothing necessary - lorem ipsum text will be displayed
+            }
+            else {
+                // ereaderBinding.readerText.setText(String.valueOf(task.getResult().getValue()));
+                String raw = String.valueOf(task.getResult().getValue());
+                ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH));
+            }
+        });
 
     }
 
@@ -53,9 +77,11 @@ public class Reader extends AppCompatActivity {
             bottomSheetDialog.dismiss();
         });
 
-        Slider discreteSlider = bottomSheetDialog.findViewById(R.id.discreteSlider);
+
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
+
+        Slider discreteSlider = bottomSheetDialog.findViewById(R.id.discreteSlider);
         float slidervalue = 100 - ((32f - textsize) * 5f);
         discreteSlider.setValue(slidervalue);
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.Toolbar.Day" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/beau_blue</item>
+    </style>
+
+    <style name="AppTheme.Toolbar.Night" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/gray_100</item>
+    </style>
+
+
+</resources>
