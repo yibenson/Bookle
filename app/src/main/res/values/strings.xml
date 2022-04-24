@@ -11,5 +11,7 @@ Mauris diam mi, cursus et elit ut, ornare suscipit risus. Mauris posuere lacus n
 Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis purus ac malesuada. Maecenas ipsum turpis, bibendum imperdiet vehicula quis, fringilla id nulla. Nulla pellentesque, arcu at mattis consequat, velit lacus laoreet quam, congue pellentesque turpis dui quis orci. Suspendisse gravida orci ultricies lacus lobortis, at mollis nunc mollis. Aenean non mollis lectus. Ut iaculis ornare sem, non iaculis lectus lacinia at. Maecenas fermentum lorem quam. Vivamus erat risus, ornare quis molestie at, elementum ac quam. Vestibulum non augue quis nulla rhoncus tristique. Duis molestie dignissim ligula, id pulvinar justo pretium sed. Curabitur mollis, eros id suscipit feugiat, lacus elit consectetur risus, vitae vehicula elit urna in odio.</string>
     <string name="darkmode">darkmode</string>
     <string name="textsize">textsize</string>
+    <string name="message">message</string>
+    <string name="reader">Reader</string>
 
 </resources>

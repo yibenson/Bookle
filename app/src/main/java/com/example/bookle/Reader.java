@@ -45,7 +45,7 @@ public class Reader extends AppCompatActivity {
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
-        databaseReference.child("testtext").get().addOnCompleteListener(task -> {
+        databaseReference.child(getString(R.string.message)).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
                 // nothing necessary - lorem ipsum text will be displayed

@@ -34,7 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         setDarkMode();
 
-        binding.button.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Reader.class)));
+        binding.cover.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Reader.class)));
+        binding.helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("MainActivity", "Clicked on help icon");
+            }
+        });
+
+        binding.bookshelfIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("MainActivity", "Clicked on bookshelf icon");
+            }
+        });
     }
 
     public void setDarkMode() {
