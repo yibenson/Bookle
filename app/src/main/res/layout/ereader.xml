@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -50,15 +49,33 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/reader_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:text="@string/lorem_text"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reader_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:text="@string/lorem_text"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="156dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/reveal"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+
+
     </androidx.core.widget.NestedScrollView>
 
 

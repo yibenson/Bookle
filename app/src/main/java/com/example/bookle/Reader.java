@@ -31,39 +31,48 @@ public class Reader extends AppCompatActivity {
     SharedPreferences sharedPref;
     DatabaseReference databaseReference;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
-        ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
         ereaderBinding.backButton.setOnClickListener(view -> finish());
         ereaderBinding.appName.setOnClickListener(view -> finish());
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
 
+        // Loads ereader with HTML text from Firebase
+        loadText();
+    }
+
+    private void loadText() {
+        /* Sets textsize as recorded in Shared Preferences */
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
+
+        /* Fills reader textview with text from Firebase */
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(getString(R.string.message)).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
-                // nothing necessary - lorem ipsum text will be displayed
             }
             else {
-                // ereaderBinding.readerText.setText(String.valueOf(task.getResult().getValue()));
                 String raw = String.valueOf(task.getResult().getValue());
-                ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH));
+                } else {
+                    ereaderBinding.readerText.setText(Html.fromHtml(raw));
+                }
             }
         });
-
     }
 
     private void showBottomSheetDialog() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.bottom_sheet);
-        SwitchCompat darkmodeswitch = bottomSheetDialog.findViewById(R.id.darkmode_switch);
 
+        /* Initializes dark mode switch with saved values and sets a mode-switch listener */
+        SwitchCompat darkmodeswitch = bottomSheetDialog.findViewById(R.id.darkmode_switch);
         AtomicBoolean darkmode = new AtomicBoolean(sharedPref.getBoolean(getString(R.string.darkmode), false));
         darkmodeswitch.setChecked(darkmode.get());
         darkmodeswitch.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -77,10 +86,8 @@ public class Reader extends AppCompatActivity {
             bottomSheetDialog.dismiss();
         });
 
-
+        /* Initializes textsize slider to saved value and sets textsize change listener */
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
-        ereaderBinding.readerText.setTextSize(textsize);
-
         Slider discreteSlider = bottomSheetDialog.findViewById(R.id.discreteSlider);
         float slidervalue = 100 - ((32f - textsize) * 5f);
         discreteSlider.setValue(slidervalue);
@@ -99,6 +106,7 @@ public class Reader extends AppCompatActivity {
                 bottomSheetDialog.dismiss();
             }
         });
+
         bottomSheetDialog.show();
     }
 

@@ -13,5 +13,8 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="textsize">textsize</string>
     <string name="message">message</string>
     <string name="reader">Reader</string>
+    <string name="reveal">Reveal</string>
+    <string name="A">A</string>
+    <string name="darkmodetoggle">Dark mode toggle</string>
 
 </resources>
