@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bookshelfIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("MainActivity", "Clicked on bookshelf icon");
+                startActivity(new Intent(getApplicationContext(), Bookshelf.class));
             }
         });
     }
@@ -59,4 +59,5 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+
 }
