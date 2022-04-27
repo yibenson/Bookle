@@ -2,10 +2,15 @@ package com.example.bookle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+//import android.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
+//import android.icu.util.Calendar;
+import java.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -51,8 +56,14 @@ public class Reader extends AppCompatActivity {
         ereaderBinding.readerText.setTextSize(textsize);
 
         /* Fills reader textview with text from Firebase */
+        String today = "";
+        today = setToday();
+        if (today == "") {
+            Log.e("date", "Error getting today's date");
+        }
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("text_html").get().addOnCompleteListener(task -> {
+        databaseReference.child(today + "/text").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
@@ -108,6 +119,16 @@ public class Reader extends AppCompatActivity {
         });
 
         bottomSheetDialog.show();
+    }
+
+
+    private String setToday() {
+        // Following code based on
+        // https://medium.com/@shayma_92409/display-the-current-date-android-studio-f582bf14f908
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+        return dateFormat.format(calendar.getTime());
     }
 
 
