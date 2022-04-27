@@ -61,6 +61,8 @@ public class Reader extends AppCompatActivity {
         if (today == "") {
             Log.e("date", "Error getting today's date");
         }
+        // FIXME: Ereader date hardcoded here so it doesn't break!
+        today = "04-27-2022";
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(today + "/text").get().addOnCompleteListener(task -> {
