@@ -17,4 +17,24 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="A">A</string>
     <string name="darkmodetoggle">Dark mode toggle</string>
 
+    <!-- Help page -->
+    <string name="help_title">What is Bookle?</string>
+
+    <string name="help_q1">Don’t judge a book by its cover...</string>
+    <string name="help_a1">Read the first chapter of a different unknown book everyday.</string>
+
+    <string name="help_q2">Want to know more?</string>
+    <string name="help_a2">Reveal the book title and details at the end of the chapter.</string>
+
+    <string name="help_q3">Want to read more?</string>
+    <string name="help_a3">There will also be an Amazon link included when you reveal the title.</string>
+
+    <string name="help_q4">Want to see books from previous days?</string>
+    <string name="help_a4">You can go to the bookshelf for a week-by-week history of previous titles!</string>
+    <!-- End help page -->
+
+
+
+
+
 </resources>

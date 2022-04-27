@@ -35,12 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setDarkMode();
 
         binding.cover.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Reader.class)));
-        binding.helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("MainActivity", "Clicked on help icon");
-            }
-        });
+
+        binding.helpIcon.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Help.class)));
 
         binding.bookshelfIcon.setOnClickListener(new View.OnClickListener() {
             @Override

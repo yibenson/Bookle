@@ -8,5 +8,15 @@
         <item name="android:background">@color/gray_100</item>
     </style>
 
+    <style name="helpQuestion" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="helpAnswer" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
 
 </resources>

@@ -52,7 +52,7 @@ public class Reader extends AppCompatActivity {
 
         /* Fills reader textview with text from Firebase */
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(getString(R.string.message)).get().addOnCompleteListener(task -> {
+        databaseReference.child("text").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
