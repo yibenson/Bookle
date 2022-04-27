@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.236" />
         <entry key="app/src/main/res/layout/activity_help.xml" value="0.24485168457031256" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21457316080729205" />
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ereader.xml" value="0.40378570556640625" />
+=======
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_add_to_drive_24.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/bookshelf.xml" value="0.18333333333333332" />
+        <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/ereader.xml" value="0.15249837767683322" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/section_header.xml" value="0.18333333333333332" />
+>>>>>>> b4f7572587eb7d46fe6eaf9beafe28225e64ad2e
       </map>
     </option>
   </component>

@@ -52,14 +52,14 @@ public class Reader extends AppCompatActivity {
 
         /* Fills reader textview with text from Firebase */
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("text").get().addOnCompleteListener(task -> {
+        databaseReference.child("text_html").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
             else {
                 String raw = String.valueOf(task.getResult().getValue());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH));
+                    ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_MODE_LEGACY));
                 } else {
                     ereaderBinding.readerText.setText(Html.fromHtml(raw));
                 }
