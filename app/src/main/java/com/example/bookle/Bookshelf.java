@@ -18,6 +18,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     BookshelfBinding binding;
     SparseArray<SectionedGridRecyclerViewAdapter.Section> mSections;
     List<Integer> mItems;
+    public static int from_bookshelf = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,8 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         RecyclerView mRecyclerView = (RecyclerView) binding.recyclerview;
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+        int pre_reveal_covers[] = new int[]{ R.drawable.mysterybook, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
+        int post_reveal_covers[] = new int[]{ R.drawable.cover1, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
 
         //Your RecyclerView.Adapter
         SimpleAdapter mAdapter = new SimpleAdapter(this);
@@ -49,13 +52,14 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
 
 
 
+
         //Apply this adapter to the RecyclerView
         mRecyclerView.setAdapter(mSectionedAdapter);
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), BookToday.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }
