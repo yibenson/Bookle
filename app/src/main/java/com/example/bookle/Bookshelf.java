@@ -1,5 +1,6 @@
 package com.example.bookle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
@@ -54,13 +55,13 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startActivity(new Intent(getApplicationContext(), BookToday.class));
             }
         });
     }
 
     @Override
     public void onCoverClick(int position) {
-
+        startActivity(new Intent(getApplicationContext(), BookToday.class));
     }
 }

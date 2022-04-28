@@ -18,5 +18,41 @@
         <item name="android:textSize">18dp</item>
     </style>
 
+    <style name="date">
+
+        <item name="android:textSize">
+            28sp
+        </item>
+
+        <item name="android:textColor">
+            #141414
+        </item>
+
+    </style>
+
+    <style name="title">
+
+        <item name="android:textSize">
+            32sp
+        </item>
+
+        <item name="android:textColor">
+            #141414
+        </item>
+
+    </style>
+
+    <style name="author">
+
+        <item name="android:textSize">
+            28sp
+        </item>
+
+        <item name="android:textColor">
+            #141414
+        </item>
+
+    </style>
+
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.bookle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.icu.text.SimpleDateFormat;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -131,6 +133,10 @@ public class Reader extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 
         return dateFormat.format(calendar.getTime());
+    }
+
+    public void reveal(View view) {
+        startActivity(new Intent(getApplicationContext(), BookToday.class));
     }
 
 

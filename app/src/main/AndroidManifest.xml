@@ -10,6 +10,48 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bookle">
         <activity
+            android:name=".Book13"
+            android:exported="false" />
+        <activity
+            android:name=".Book12"
+            android:exported="false" />
+        <activity
+            android:name=".Book11"
+            android:exported="false" />
+        <activity
+            android:name=".Book10"
+            android:exported="false" />
+        <activity
+            android:name=".Book9"
+            android:exported="false" />
+        <activity
+            android:name=".Book8"
+            android:exported="false" />
+        <activity
+            android:name=".Book7"
+            android:exported="false" />
+        <activity
+            android:name=".Book6"
+            android:exported="false" />
+        <activity
+            android:name=".Book5"
+            android:exported="false" />
+        <activity
+            android:name=".Book4"
+            android:exported="false" />
+        <activity
+            android:name=".Book3"
+            android:exported="false" />
+        <activity
+            android:name=".Book2"
+            android:exported="false" />
+        <activity
+            android:name=".Book1"
+            android:exported="false" />
+        <activity
+            android:name=".BookToday"
+            android:exported="false" />
+        <activity
             android:name=".Help"
             android:exported="false" />
         <activity
@@ -22,12 +64,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Reader"
-            android:exported="true">
-        </activity>
-        <activity android:name=".Bookshelf"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".Reader"
+            android:exported="true" />
+        <activity
+            android:name=".Bookshelf"
+            android:exported="true" />
     </application>
 
 </manifest>

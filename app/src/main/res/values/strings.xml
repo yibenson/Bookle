@@ -33,8 +33,10 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="help_a4">You can go to the bookshelf for a week-by-week history of previous titles!</string>
     <!-- End help page -->
 
-
-
+    <string name="today">Today\'s Bookle was…</string>
+    <string name="title0">Where the Crawdads Sing</string>
+    <string name="author0">by Delia Owens</string>
+    <string name="timer">Next Bookle in...</string>
 
 
 </resources>
