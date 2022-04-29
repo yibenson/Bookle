@@ -31,12 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 /* E-reader section. Credit for bottom sheet dialog goes to Joseph Chege's tutorial on section.io */
 
 public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
     DatabaseReference databaseReference;
+    public static int from_reader = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +138,8 @@ public class Reader extends AppCompatActivity {
     }
 
     public void reveal(View view) {
+        MainActivity.revealed = 1;
+        from_reader = 1;
         startActivity(new Intent(getApplicationContext(), BookToday.class));
     }
 

@@ -12,6 +12,10 @@ import android.os.CountDownTimer;
 import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -40,8 +44,8 @@ public class BookToday extends AppCompatActivity {
 
             public void onTick(long millisUntilFinished) {
                 long seconds = (millisUntilFinished / 1000) % 60;
-                long minutes = (((millisUntilFinished / 1000) - seconds)/ 60) % 60;
-                long hours = ((((millisUntilFinished / 1000) - seconds)/ 60 - minutes)/ 60);
+                long minutes = (((millisUntilFinished / 1000) - seconds) / 60) % 60;
+                long hours = ((((millisUntilFinished / 1000) - seconds) / 60 - minutes) / 60);
                 TextView countdown = (TextView) findViewById(R.id.timer);
                 String h = Long.toString(hours);
                 String m = Long.toString(minutes);
@@ -112,4 +116,19 @@ public class BookToday extends AppCompatActivity {
 
         return dateFormat.format(calendar.getTime());
     }
+
+    public void close(View view) {
+        if (Reader.from_reader == 1) {
+            Reader.from_reader = 0;
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        } else {
+            if (Bookshelf.from_bookshelf == 1) {
+                Bookshelf.from_bookshelf = 0;
+                startActivity(new Intent(getApplicationContext(), Bookshelf.class));
+            } else {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        }
+    }
+
 }

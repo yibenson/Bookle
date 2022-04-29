@@ -1,6 +1,9 @@
 package com.example.bookle;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.SparseArray;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 
 /**
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
@@ -34,6 +44,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
                 @Override
                 public void onClick(View view) {
                     Log.v("Bookshelf", "Clicked on book cover: " + number);
+
                 }
             });
             // title = (TextView) view.findViewById(R.id.item_text);

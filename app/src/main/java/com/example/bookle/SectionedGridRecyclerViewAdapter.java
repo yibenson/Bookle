@@ -195,5 +195,4 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
     }
 
 
-
 }

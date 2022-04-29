@@ -25,6 +25,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    public static int revealed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
