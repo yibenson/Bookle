@@ -9,8 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="gray_300">#1c313a</color>
-    <color name="gray_200">#455a64</color>
-    <color name="gray_100">#718792</color>
+    <color name="gray_200">#D1D0D0</color>
+    <color name="gray_100">#1c313a</color>
 
     <color name="beau_blue">#CCD7E4</color>
     <color name="terra_cotta">#D77A61</color>

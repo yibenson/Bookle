@@ -1,11 +1,14 @@
 package com.example.bookle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -40,6 +43,8 @@ public class BookToday extends AppCompatActivity {
         /* Retrieve today's cover image from database. */
         displayTodaysBook();
 
+        setDarkMode();
+
         new CountDownTimer(diff, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -63,14 +68,15 @@ public class BookToday extends AppCompatActivity {
     }
 
     private void displayTodaysBook() {
-        String today = "";
-        today = setToday();
+        /* Get today's date, which is saved in sharedPreferences. */
+        SharedPreferences sharedPref;
+        sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        String today = sharedPref.getString("date", "");
         if (today == "") {
             Log.e("date", "Error getting today's date");
         }
-
         // FIXME: Ereader date hardcoded here so it doesn't break!
-        today = "04-27-2022";
+        // today = "04-27-2022";
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         ImageView cover = (ImageView) findViewById(R.id.book0_cover);
@@ -108,15 +114,6 @@ public class BookToday extends AppCompatActivity {
         });
     }
 
-    private String setToday() {
-        // Following code based on
-        // https://medium.com/@shayma_92409/display-the-current-date-android-studio-f582bf14f908
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-        return dateFormat.format(calendar.getTime());
-    }
-
     public void close(View view) {
         if (Reader.from_reader == 1) {
             Reader.from_reader = 0;
@@ -128,6 +125,16 @@ public class BookToday extends AppCompatActivity {
             } else {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
+        }
+    }
+
+    public void setDarkMode() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
+        if (darkmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 

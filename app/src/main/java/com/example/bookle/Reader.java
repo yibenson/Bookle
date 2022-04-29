@@ -60,13 +60,12 @@ public class Reader extends AppCompatActivity {
         ereaderBinding.readerText.setTextSize(textsize);
 
         /* Fills reader textview with text from Firebase */
-        String today = "";
-        today = setToday();
+        String today = sharedPref.getString("date", "");
         if (today == "") {
             Log.e("date", "Error getting today's date");
         }
         // FIXME: Ereader date hardcoded here so it doesn't break!
-        today = "04-27-2022";
+        //today = "04-27-2022";
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(today + "/text").get().addOnCompleteListener(task -> {
@@ -127,21 +126,10 @@ public class Reader extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
-
-    private String setToday() {
-        // Following code based on
-        // https://medium.com/@shayma_92409/display-the-current-date-android-studio-f582bf14f908
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-        return dateFormat.format(calendar.getTime());
-    }
-
     public void reveal(View view) {
         MainActivity.revealed = 1;
         from_reader = 1;
         startActivity(new Intent(getApplicationContext(), BookToday.class));
     }
-
 
 }
