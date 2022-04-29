@@ -2,9 +2,19 @@ package com.example.bookle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Html;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,6 +32,27 @@ public class BookToday extends AppCompatActivity {
         c.set(Calendar.SECOND, 0);
         Date midnight = c.getTime();
         long diff = midnight.getTime() - currentTime.getTime();
+
+        /* Retrieve today's cover image from database. */
+        String today = "";
+        today = setToday();
+        if (today == "") {
+            Log.e("date", "Error getting today's date");
+        }
+        // FIXME: Ereader date hardcoded here so it doesn't break!
+        today = "04-27-2022";
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(today + "/cover").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting cover data", task.getException());
+            }
+            else {
+                String imageUri = String.valueOf(task.getResult().getValue());
+                ImageView cover = (ImageView) findViewById(R.id.book0_cover);
+                Picasso.get().load(imageUri).into(cover);
+            }
+        });
 
         new CountDownTimer(diff, 1000) {
 
@@ -43,5 +74,14 @@ public class BookToday extends AppCompatActivity {
             }
 
         }.start();
+    }
+
+    private String setToday() {
+        // Following code based on
+        // https://medium.com/@shayma_92409/display-the-current-date-android-studio-f582bf14f908
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+        return dateFormat.format(calendar.getTime());
     }
 }

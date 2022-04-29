@@ -73,11 +73,10 @@
         app:layout_constraintStart_toStartOf="@+id/cover_background"
         app:layout_constraintTop_toTopOf="@+id/cover_background" />
 
-    <View
+    <ImageView
         android:id="@+id/book0_cover"
         android:layout_width="206dp"
         android:layout_height="302dp"
-        android:background="@drawable/cover1"
         app:layout_constraintBottom_toBottomOf="@+id/cover_background"
         app:layout_constraintEnd_toEndOf="@+id/cover_background"
         app:layout_constraintStart_toStartOf="@+id/cover_background"
