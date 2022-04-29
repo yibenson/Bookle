@@ -34,25 +34,7 @@ public class BookToday extends AppCompatActivity {
         long diff = midnight.getTime() - currentTime.getTime();
 
         /* Retrieve today's cover image from database. */
-        String today = "";
-        today = setToday();
-        if (today == "") {
-            Log.e("date", "Error getting today's date");
-        }
-        // FIXME: Ereader date hardcoded here so it doesn't break!
-        today = "04-27-2022";
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(today + "/cover").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting cover data", task.getException());
-            }
-            else {
-                String imageUri = String.valueOf(task.getResult().getValue());
-                ImageView cover = (ImageView) findViewById(R.id.book0_cover);
-                Picasso.get().load(imageUri).into(cover);
-            }
-        });
+        displayTodaysBook();
 
         new CountDownTimer(diff, 1000) {
 
@@ -74,6 +56,52 @@ public class BookToday extends AppCompatActivity {
             }
 
         }.start();
+    }
+
+    private void displayTodaysBook() {
+        String today = "";
+        today = setToday();
+        if (today == "") {
+            Log.e("date", "Error getting today's date");
+        }
+
+        // FIXME: Ereader date hardcoded here so it doesn't break!
+        today = "04-27-2022";
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        ImageView cover = (ImageView) findViewById(R.id.book0_cover);
+        TextView title = (TextView) findViewById(R.id.book0_title);
+        TextView author = (TextView) findViewById(R.id.book0_author);
+
+        databaseReference.child(today + "/title").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting title data", task.getException());
+            }
+            else {
+                String raw = String.valueOf(task.getResult().getValue());
+                title.setText(raw);
+            }
+        });
+
+        databaseReference.child(today + "/author").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting author data", task.getException());
+            }
+            else {
+                String raw = String.valueOf(task.getResult().getValue());
+                author.setText("by " + raw);
+            }
+        });
+
+        databaseReference.child(today + "/cover").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting cover data", task.getException());
+            }
+            else {
+                String imageUri = String.valueOf(task.getResult().getValue());
+                Picasso.get().load(imageUri).into(cover);
+            }
+        });
     }
 
     private String setToday() {

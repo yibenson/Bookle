@@ -63,7 +63,7 @@
     <TextView
         android:id="@+id/book0_title"
         android:layout_width="289dp"
-        android:layout_height="79dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal|top"
         android:text="@string/title0"
         android:textAppearance="@style/title"
