@@ -78,7 +78,6 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
                 }
             }
             Intent intent = new Intent(getApplicationContext(), BookDialog.class);
-            Log.e("Bookshelf", "Trying to open book number: " + index);
             intent.putExtra("BOOK", index);
             startActivity(intent);
         }

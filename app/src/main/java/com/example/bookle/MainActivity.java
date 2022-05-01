@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCover() {
-        Log.e("Front", "Attempting to set cover");
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         boolean revealed = sharedPref.getBoolean(getString(R.string.reveal), false);
         if (!revealed) {

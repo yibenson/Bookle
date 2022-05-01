@@ -55,7 +55,6 @@ public class BookDialog extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
         if (darkmode) {
-            Log.e("Bookshelf", "Attempting to set dark mode");
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

@@ -1,8 +1,11 @@
 package com.example.bookle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.bookle.databinding.ActivityBookTodayBinding;
+import com.example.bookle.databinding.BookshelfBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -21,24 +24,29 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 public class BookToday extends AppCompatActivity {
+    NumberFormat f = new DecimalFormat("00");
+    ActivityBookTodayBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_today);
-        Calendar c = Calendar.getInstance();
-        Date currentTime = Calendar.getInstance().getTime();
-        c.add(Calendar.DATE, 1);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        Date midnight = c.getTime();
-        long diff = midnight.getTime() - currentTime.getTime();
+        binding = ActivityBookTodayBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        LocalTime localTime = LocalTime.now();
+        LocalTime midnight = LocalTime.MIDNIGHT.minusNanos(1);
+        long diff = Duration.between(localTime, midnight).toMillis();
 
         /* Retrieve today's cover image from database. */
         displayTodaysBook();
@@ -51,20 +59,19 @@ public class BookToday extends AppCompatActivity {
                 long seconds = (millisUntilFinished / 1000) % 60;
                 long minutes = (((millisUntilFinished / 1000) - seconds) / 60) % 60;
                 long hours = ((((millisUntilFinished / 1000) - seconds) / 60 - minutes) / 60);
-                TextView countdown = (TextView) findViewById(R.id.timer);
-                String h = Long.toString(hours);
-                String m = Long.toString(minutes);
-                String s = Long.toString(seconds);
-                String time = h + ":" + m + "." + s;
-                countdown.setText(time);
+                String h = f.format(hours);
+                String m = f.format(minutes);
+                String s = f.format(seconds);
+                String time = h + ":" + m + ":" + s;
+                binding.timer.setText(time);
             }
 
             public void onFinish() {
-                TextView countdown = (TextView) findViewById(R.id.timer);
-                countdown.setText("done!");
+                binding.timer.setText("done!");
             }
 
         }.start();
+        binding.backButton.setOnClickListener(this::close);
     }
 
     private void displayTodaysBook() {
