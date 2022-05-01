@@ -71,17 +71,26 @@ public class BookToday extends AppCompatActivity {
         /* Get today's date, which is saved in sharedPreferences. */
         SharedPreferences sharedPref;
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        /*
         String today = sharedPref.getString("date", "");
         if (today == "") {
             Log.e("date", "Error getting today's date");
         }
         // FIXME: Ereader date hardcoded here so it doesn't break!
-        // today = "04-27-2022";
+
+         */
+        String today = "04-27-2022";
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         ImageView cover = (ImageView) findViewById(R.id.book0_cover);
         TextView title = (TextView) findViewById(R.id.book0_title);
         TextView author = (TextView) findViewById(R.id.book0_author);
+
+        cover.setBackground(getDrawable(R.drawable.cover1));
+        title.setText("Where the Crawdads Sing");
+        author.setText("by Delia Owens");
+
+        /*
 
         databaseReference.child(today + "/title").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -112,20 +121,13 @@ public class BookToday extends AppCompatActivity {
                 Picasso.get().load(imageUri).into(cover);
             }
         });
+
+         */
+
     }
 
     public void close(View view) {
-        if (Reader.from_reader == 1) {
-            Reader.from_reader = 0;
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        } else {
-            if (Bookshelf.from_bookshelf == 1) {
-                Bookshelf.from_bookshelf = 0;
-                startActivity(new Intent(getApplicationContext(), Bookshelf.class));
-            } else {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
-        }
+        finish();
     }
 
     public void setDarkMode() {

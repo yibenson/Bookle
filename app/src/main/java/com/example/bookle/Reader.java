@@ -38,14 +38,13 @@ public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
     DatabaseReference databaseReference;
-    public static int from_reader = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
-        ereaderBinding.backButton.setOnClickListener(view -> finish());
-        ereaderBinding.appName.setOnClickListener(view -> finish());
+        ereaderBinding.backButton.setOnClickListener(view -> close());
+        ereaderBinding.appName.setOnClickListener(view -> close());
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
 
@@ -59,13 +58,15 @@ public class Reader extends AppCompatActivity {
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
 
-        /* Fills reader textview with text from Firebase */
+        /* Fills reader textview with text from Firebase
         String today = sharedPref.getString("date", "");
-        if (today == "") {
+        //if (today == "") {
             Log.e("date", "Error getting today's date");
         }
         // FIXME: Ereader date hardcoded here so it doesn't break!
-        //today = "04-27-2022";
+
+         */
+        String today = "04-28-2022";
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(today + "/text").get().addOnCompleteListener(task -> {
@@ -74,11 +75,7 @@ public class Reader extends AppCompatActivity {
             }
             else {
                 String raw = String.valueOf(task.getResult().getValue());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_MODE_LEGACY));
-                } else {
-                    ereaderBinding.readerText.setText(Html.fromHtml(raw));
-                }
+                ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_MODE_LEGACY));
             }
         });
     }
@@ -126,9 +123,14 @@ public class Reader extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
+    private void close() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void reveal(View view) {
-        MainActivity.revealed = 1;
-        from_reader = 1;
+        sharedPref.edit().putBoolean(getString(R.string.reveal), true).apply();
         startActivity(new Intent(getApplicationContext(), BookToday.class));
     }
 
