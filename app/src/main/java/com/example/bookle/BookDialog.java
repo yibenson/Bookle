@@ -1,5 +1,7 @@
 package com.example.bookle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.BookDialogBinding;
@@ -17,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class BookDialog extends AppCompatActivity {
 
     BookDialogBinding bookDialogBinding;
@@ -46,6 +48,18 @@ public class BookDialog extends AppCompatActivity {
         bookDialogBinding.bookleMsg.setText(text);
         bookDialogBinding.bookleMsg.bringToFront();
         bookDialogBinding.backButton.setOnClickListener(view -> finish());
+        setDarkMode();
+    }
+
+    public void setDarkMode() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
+        if (darkmode) {
+            Log.e("Bookshelf", "Attempting to set dark mode");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }
 
