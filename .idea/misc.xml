@@ -16,9 +16,11 @@
         <entry key="app/src/main/res/layout/activity_book_today.xml" value="0.301739525142774" />
         <entry key="app/src/main/res/layout/activity_help.xml" value="0.16634063720703127" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26121775309244827" />
+        <entry key="app/src/main/res/layout/book_dialog.xml" value="0.36770833333333336" />
         <entry key="app/src/main/res/layout/bookshelf.xml" value="0.24004833080150464" />
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ereader.xml" value="0.20712328767123286" />
+        <entry key="app/src/main/res/layout/section_header.xml" value="0.3770833333333333" />
       </map>
     </option>
   </component>

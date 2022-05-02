@@ -59,7 +59,7 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
         <item>https://tinyurl.com/3rzpbz5w</item>
     </string-array>
 
-    <string name="share_book">"Today's Bookle opened with the sentence:\n\n\tThe morning burned so August-hot, the marsh's moist breath hung the oaks and pines with fog.\nWhat's the title?"</string>
+    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n"The morning burned so August-hot, the marsh's moist breath hung the oaks and pines with fog."</string>
     <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.</string>
 
 </resources>
