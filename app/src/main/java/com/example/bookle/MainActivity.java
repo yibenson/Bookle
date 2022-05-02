@@ -3,6 +3,7 @@ package com.example.bookle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    public static int revealed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         setDarkMode();
         setToday();
+        setCover();
 
         binding.cover.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Reader.class)));
 
@@ -71,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         sharedPref.edit().putString("date", today).apply();
+    }
+
+    private void setCover() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        boolean revealed = sharedPref.getBoolean(getString(R.string.reveal), false);
+        if (!revealed) {
+            binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
+        } else {
+            binding.cover.setBackground(getDrawable(R.drawable.cover1));
+        }
     }
 
 }

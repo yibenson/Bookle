@@ -1,25 +1,33 @@
 package com.example.bookle;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookle.databinding.BookshelfBinding;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     BookshelfBinding binding;
-    SparseArray<SectionedGridRecyclerViewAdapter.Section> mSections;
-    List<Integer> mItems;
     public static int from_bookshelf = 0;
+    SimpleAdapter mAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = BookshelfBinding.inflate(getLayoutInflater());
@@ -27,31 +35,25 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         RecyclerView mRecyclerView = (RecyclerView) binding.recyclerview;
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-        int pre_reveal_covers[] = new int[]{ R.drawable.mysterybook, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
-        int post_reveal_covers[] = new int[]{ R.drawable.cover1, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
-
         //Your RecyclerView.Adapter
-        SimpleAdapter mAdapter = new SimpleAdapter(this);
+        mAdapter = new SimpleAdapter(this, this::onCoverClick);
 
         //This is the code to provide a sectioned grid
         List<SectionedGridRecyclerViewAdapter.Section> sections =
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
 
         //Sections
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Section 1"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(7,"Section 2"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(14,"Section 3"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(21,"Section 4"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(28,"Section 5"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Week 1"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(7,"Week 2"));
+        //sections.add(new SectionedGridRecyclerViewAdapter.Section(14,"Week 3"));
+        //sections.add(new SectionedGridRecyclerViewAdapter.Section(21,"Week 4"));
+        //sections.add(new SectionedGridRecyclerViewAdapter.Section(28,"Week 5"));
 
         //Add your adapter to the sectionAdapter
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
         SectionedGridRecyclerViewAdapter mSectionedAdapter = new
                 SectionedGridRecyclerViewAdapter(this,R.layout.section_header, R.id.header_title,mRecyclerView,mAdapter);
         mSectionedAdapter.setSections(sections.toArray(dummy));
-
-
-
 
         //Apply this adapter to the RecyclerView
         mRecyclerView.setAdapter(mSectionedAdapter);
@@ -64,8 +66,20 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCoverClick(int position) {
-        startActivity(new Intent(getApplicationContext(), BookToday.class));
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        if (position % 8 != 0) {
+            int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
+            if (index == 0) {
+                if (!sharedPreferences.getBoolean(getString(R.string.reveal), false)) {
+                    return;
+                }
+            }
+            Intent intent = new Intent(getApplicationContext(), BookDialog.class);
+            intent.putExtra("BOOK", index);
+            startActivity(intent);
+        }
     }
 }

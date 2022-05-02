@@ -90,7 +90,7 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int typeView) {
         if (typeView == SECTION_TYPE) {
             final View view = LayoutInflater.from(mContext).inflate(mSectionResourceId, parent, false);
-            return new SectionViewHolder(view,mTextResourceId);
+            return new SectionViewHolder(view, mTextResourceId);
         }else{
             return mBaseAdapter.onCreateViewHolder(parent, typeView -1);
         }

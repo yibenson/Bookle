@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable-v24/background.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/close.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_add_to_drive_24.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_cloud_download_24.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_delete_24.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_link_24.xml" value="0.2545" />
+=======
+        <entry key="app/src/main/res/drawable-v24/background.xml" value="0.312" />
+>>>>>>> refs/remotes/origin/master
         <entry key="app/src/main/res/drawable-v24/ic_baseline_share_24.xml" value="0.2075" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.219" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2545" />
@@ -17,6 +21,9 @@
         <entry key="app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2075" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.219" />
         <entry key="app/src/main/res/layout/activity_book1.xml" value="0.22780797101449277" />
+        <entry key="app/src/main/res/layout/activity_book10.xml" value="0.3046875" />
+        <entry key="app/src/main/res/layout/activity_book11.xml" value="0.3046875" />
+        <entry key="app/src/main/res/layout/activity_book12.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_book_today.xml" value="0.301739525142774" />
         <entry key="app/src/main/res/layout/activity_help.xml" value="0.16634063720703127" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26121775309244827" />
