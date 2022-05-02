@@ -14,6 +14,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -78,6 +79,7 @@ public class BookToday extends AppCompatActivity {
 
         }.start();
         binding.backButton.setOnClickListener(this::close);
+        binding.amazonButton.setOnClickListener(view -> open_link());
         binding.shareButton.setOnClickListener(view -> clipboard());
     }
 
@@ -103,6 +105,8 @@ public class BookToday extends AppCompatActivity {
         cover.setBackground(getDrawable(R.drawable.cover1));
         title.setText("Where the Crawdads Sing");
         author.setText("by Delia Owens");
+
+
 
         /*
 
@@ -161,6 +165,12 @@ public class BookToday extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    private void open_link() {
+        String[] amazon_links = getResources().getStringArray(R.array.amazon_links);
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazon_links[0]));
+        startActivity(browserIntent);
     }
 
 }
