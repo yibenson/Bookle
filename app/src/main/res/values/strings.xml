@@ -38,5 +38,28 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="author0">by Delia Owens</string>
     <string name="timer">Next Bookle in...</string>
 
+    <string-array name="amazon_links">
+        <item>https://tinyurl.com/bdecsdnv</item>
+        <item>https://tinyurl.com/5ychh5zs</item>
+        <item>https://tinyurl.com/3xykzww2</item>
+
+        <item>https://tinyurl.com/5efcmpse</item>
+        <item>https://tinyurl.com/bd7pawjs</item>
+        <item>https://tinyurl.com/3j6pbutx</item>
+
+        <item>https://tinyurl.com/5fj7appy</item>
+        <item>https://tinyurl.com/auwp5jk8</item>
+        <item>https://tinyurl.com/46kx3kv8</item>
+
+        <item>https://tinyurl.com/3vsnfy3k</item>
+        <item>https://tinyurl.com/2p8neavm</item>
+        <item>https://tinyurl.com/yeyrwbsk</item>
+
+        <item>https://tinyurl.com/39887u84</item>
+        <item>https://tinyurl.com/3rzpbz5w</item>
+    </string-array>
+
+    <string name="share_book">"Today's Bookle opened with the sentence:\n\n\tThe morning burned so August-hot, the marsh's moist breath hung the oaks and pines with fog.\nWhat's the title?"</string>
+    <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.</string>
 
 </resources>

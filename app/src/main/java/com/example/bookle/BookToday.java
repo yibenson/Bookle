@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -23,6 +25,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -37,6 +40,9 @@ import java.util.Date;
 public class BookToday extends AppCompatActivity {
     NumberFormat f = new DecimalFormat("00");
     ActivityBookTodayBinding binding;
+
+    private ClipboardManager myClipboard;
+    private ClipData myClip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,7 @@ public class BookToday extends AppCompatActivity {
 
         }.start();
         binding.backButton.setOnClickListener(this::close);
+        binding.shareButton.setOnClickListener(view -> clipboard());
     }
 
     private void displayTodaysBook() {
@@ -135,6 +142,15 @@ public class BookToday extends AppCompatActivity {
 
     public void close(View view) {
         finish();
+    }
+
+    private void clipboard() {
+        myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        String text = getString(R.string.share_book);
+
+        myClip = ClipData.newPlainText("text", text);
+        myClipboard.setPrimaryClip(myClip);
+        Toast.makeText(this, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
     }
 
     public void setDarkMode() {
