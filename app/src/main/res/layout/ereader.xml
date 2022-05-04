@@ -65,12 +65,12 @@
                 android:textSize="20sp" />
 
             <Button
+                android:id="@+id/reveal"
                 android:layout_width="156dp"
                 android:layout_height="64dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/reveal"
-                android:onClick="reveal"
                 android:textSize="20sp"
                 android:layout_gravity="center"/>
         </LinearLayout>
