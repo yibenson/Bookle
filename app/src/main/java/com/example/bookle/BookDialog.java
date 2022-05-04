@@ -26,12 +26,6 @@ public class BookDialog extends AppCompatActivity {
 
     int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
 
-    String[] authors = new String[]{"Jane Austen", "Michelle Zauner", "Michelle Obama", "Matt Haig", "Martha Stout", "Naomi Novik", "Jennifer Egan",
-    "Taylor Jenkins Reid", "Lucy Foley", "Suleika Jaouad", "Colleen Hoover", "Emily St. John Mandel", "Brit Bennett", "Heidi W. Durrow"};
-
-    String[] titles = new String[]{"Pride and Prejudice", "Crying in H Mart", "Becoming", "The Midnight Library", "The Sociopath Next Door", "The Graduate", "The Candy House",
-    "The Seven Husbands of Evelyn Hugo", "The Paris Apartment", "Between Two Kingdoms", "Reminders of Him", "Sea of Tranquility", "The Vanishing Heir", "The Girl Who Fell From The Sky"};
-
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd");
     LocalDate localDate;
 
@@ -43,8 +37,8 @@ public class BookDialog extends AppCompatActivity {
         int index = getIntent().getIntExtra("BOOK", 0);
         localDate = LocalDate.now().minusDays(index);
         bookDialogBinding.book1Cover.setBackground(AppCompatResources.getDrawable(this, post_reveal_covers[index]));
-        bookDialogBinding.book1Author.setText("By " + authors[index]);
-        bookDialogBinding.book1Title.setText(titles[index]);
+        bookDialogBinding.book1Author.setText("By " + getResources().getStringArray(R.array.authors)[index]);
+        bookDialogBinding.book1Title.setText(getResources().getStringArray(R.array.titles)[index]);
         String text = "The Bookle on " + localDate.format(dateTimeFormatter) + " was...";
         bookDialogBinding.bookleMsg.setText(text);
         bookDialogBinding.bookleMsg.bringToFront();
@@ -72,7 +66,9 @@ public class BookDialog extends AppCompatActivity {
 
     private void clipboard(int i) {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter), titles[i], authors[i]);
+        String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
+                getResources().getStringArray(R.array.titles)[i],
+                getResources().getStringArray(R.array.authors)[i]);
 
         myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);
