@@ -6,24 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.BookDialogBinding;
-import com.example.bookle.databinding.EreaderBinding;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 public class BookDialog extends AppCompatActivity {
 
@@ -31,12 +24,12 @@ public class BookDialog extends AppCompatActivity {
     private ClipboardManager myClipboard;
     private ClipData myClip;
 
-    int[] post_reveal_covers = new int[]{ R.drawable.cover1, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
+    int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
 
-    String[] authors = new String[]{"Delia Owens", "Michelle Zauner", "Michelle Obama", "Matt Haig", "Martha Stout", "Naomi Novik", "Jennifer Egan",
+    String[] authors = new String[]{"Jane Austen", "Michelle Zauner", "Michelle Obama", "Matt Haig", "Martha Stout", "Naomi Novik", "Jennifer Egan",
     "Taylor Jenkins Reid", "Lucy Foley", "Suleika Jaouad", "Colleen Hoover", "Emily St. John Mandel", "Brit Bennett", "Heidi W. Durrow"};
 
-    String[] titles = new String[]{"Where the Crawdads Sing", "Crying in H Mart", "Becoming", "The Midnight Library", "The Sociopath Next Door", "The Graduate", "The Candy House",
+    String[] titles = new String[]{"Pride and Prejudice", "Crying in H Mart", "Becoming", "The Midnight Library", "The Sociopath Next Door", "The Graduate", "The Candy House",
     "The Seven Husbands of Evelyn Hugo", "The Paris Apartment", "Between Two Kingdoms", "Reminders of Him", "Sea of Tranquility", "The Vanishing Heir", "The Girl Who Fell From The Sky"};
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd");

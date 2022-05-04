@@ -1,42 +1,31 @@
 package com.example.bookle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.ActivityBookTodayBinding;
-import com.example.bookle.databinding.BookshelfBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
 public class BookToday extends AppCompatActivity {
     NumberFormat f = new DecimalFormat("00");
@@ -95,20 +84,14 @@ public class BookToday extends AppCompatActivity {
         // FIXME: Ereader date hardcoded here so it doesn't break!
 
          */
-        String today = "04-27-2022";
+        String today = "Books/" + "04-29-2022";
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         ImageView cover = (ImageView) findViewById(R.id.book0_cover);
+        cover.setBackground(AppCompatResources.getDrawable(this, R.drawable.prideprejudice));
         TextView title = (TextView) findViewById(R.id.book0_title);
         TextView author = (TextView) findViewById(R.id.book0_author);
 
-        cover.setBackground(getDrawable(R.drawable.cover1));
-        title.setText("Where the Crawdads Sing");
-        author.setText("by Delia Owens");
-
-
-
-        /*
 
         databaseReference.child(today + "/title").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -129,6 +112,7 @@ public class BookToday extends AppCompatActivity {
                 author.setText("by " + raw);
             }
         });
+        /*
 
         databaseReference.child(today + "/cover").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -136,11 +120,14 @@ public class BookToday extends AppCompatActivity {
             }
             else {
                 String imageUri = String.valueOf(task.getResult().getValue());
+                imageUri = "https://imgur.com/gallery/rNJGvT8";
                 Picasso.get().load(imageUri).into(cover);
             }
         });
 
          */
+
+
 
     }
 

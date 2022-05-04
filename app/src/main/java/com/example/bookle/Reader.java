@@ -66,10 +66,10 @@ public class Reader extends AppCompatActivity {
         // FIXME: Ereader date hardcoded here so it doesn't break!
 
          */
-        String today = "04-28-2022";
+        String today = "04-29-2022";
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(today + "/text").get().addOnCompleteListener(task -> {
+        databaseReference.child("Books").child(today).child("text").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
