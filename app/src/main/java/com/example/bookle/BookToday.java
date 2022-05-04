@@ -132,7 +132,8 @@ public class BookToday extends AppCompatActivity {
     }
 
     public void close(View view) {
-        finish();
+
+        startActivity(new Intent(this, Reader.class));
     }
 
     private void clipboard() {

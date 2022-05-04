@@ -24,7 +24,6 @@ import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     BookshelfBinding binding;
-    public static int from_bookshelf = 0;
     SimpleAdapter mAdapter;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -74,6 +73,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
             if (index == 0) {
                 if (!sharedPreferences.getBoolean(getString(R.string.reveal), false)) {
+                    startActivity(new Intent(getApplicationContext(), Reader.class));
                     return;
                 }
             }

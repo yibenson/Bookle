@@ -47,6 +47,18 @@ public class Reader extends AppCompatActivity {
         ereaderBinding.appName.setOnClickListener(view -> close());
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
+        sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        boolean revealed = sharedPref.getBoolean(getString(R.string.reveal), false);
+        if (revealed) {
+            ereaderBinding.reveal.setVisibility(View.GONE);
+        } else {
+            ereaderBinding.reveal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reveal(ereaderBinding.reveal);
+                }
+            });
+        }
 
         // Loads ereader with HTML text from Firebase
         loadText();
