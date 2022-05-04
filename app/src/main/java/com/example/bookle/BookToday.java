@@ -7,6 +7,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.example.bookle.databinding.ActivityBookTodayBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -88,7 +89,7 @@ public class BookToday extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         ImageView cover = (ImageView) findViewById(R.id.book0_cover);
-        cover.setBackground(AppCompatResources.getDrawable(this, R.drawable.prideprejudice));
+        //cover.setBackground(AppCompatResources.getDrawable(this, R.drawable.prideprejudice));
         TextView title = (TextView) findViewById(R.id.book0_title);
         TextView author = (TextView) findViewById(R.id.book0_author);
 
@@ -112,7 +113,7 @@ public class BookToday extends AppCompatActivity {
                 author.setText("by " + raw);
             }
         });
-        /*
+
 
         databaseReference.child(today + "/cover").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -120,12 +121,11 @@ public class BookToday extends AppCompatActivity {
             }
             else {
                 String imageUri = String.valueOf(task.getResult().getValue());
-                imageUri = "https://imgur.com/gallery/rNJGvT8";
                 Picasso.get().load(imageUri).into(cover);
             }
         });
 
-         */
+
 
 
 
