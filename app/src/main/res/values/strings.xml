@@ -34,32 +34,62 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <!-- End help page -->
 
     <string name="today">Today\'s Bookle was…</string>
-    <string name="title0">Where the Crawdads Sing</string>
-    <string name="author0">by Delia Owens</string>
-    <string name="timer">Next Bookle in...</string>
+    <string name="title0">Pride and Prejudice</string>
+    <string name="author0">by Jane Austen</string>
+    <string name="timer">Next Bookle in…</string>
 
     <string-array name="amazon_links">
-        <item>https://tinyurl.com/bdecsdnv</item>
+        <item>https://tinyurl.com/2f7eajtu</item>
         <item>https://tinyurl.com/5ychh5zs</item>
         <item>https://tinyurl.com/3xykzww2</item>
-
         <item>https://tinyurl.com/5efcmpse</item>
         <item>https://tinyurl.com/bd7pawjs</item>
         <item>https://tinyurl.com/3j6pbutx</item>
-
         <item>https://tinyurl.com/5fj7appy</item>
         <item>https://tinyurl.com/auwp5jk8</item>
         <item>https://tinyurl.com/46kx3kv8</item>
-
         <item>https://tinyurl.com/3vsnfy3k</item>
         <item>https://tinyurl.com/2p8neavm</item>
         <item>https://tinyurl.com/yeyrwbsk</item>
-
         <item>https://tinyurl.com/39887u84</item>
         <item>https://tinyurl.com/3rzpbz5w</item>
     </string-array>
 
-    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n"The morning burned so August-hot, the marsh's moist breath hung the oaks and pines with fog."</string>
+    <string-array name="authors">
+        <item>Jane Austen</item>
+        <item>Michelle Zauner</item>
+        <item>Michelle Obama</item>
+        <item>Matt Haig</item>
+        <item>Martha Stout</item>
+        <item>Naomi Novik</item>
+        <item>Jennifer Egan</item>
+        <item>Taylor Jenkins Reid</item>
+        <item>Lucy Foley</item>
+        <item>Suleika Jaouad</item>
+        <item>Colleen Hoover</item>
+        <item>Emily St. John Mandel</item>
+        <item>Brit Bennett</item>
+        <item>Heidi W. Durrow</item>
+    </string-array>
+
+    <string-array name="titles">
+        <item>Pride and Prejudice</item>
+        <item>Crying in H Mart</item>
+        <item>Becoming</item>
+        <item>The Midnight Library</item>
+        <item>The Sociopath Next Door</item>
+        <item>The Graduate</item>
+        <item>The Candy House</item>
+        <item>The Seven Husbands of Evelyn Hugo</item>
+        <item>The Paris Apartment</item>
+        <item>Between Two Kingdoms</item>
+        <item>Reminders of Him</item>
+        <item>Sea of Tranquility</item>
+        <item>The Vanishing Heir</item>
+        <item>The Girl Who Fell From The Sky</item>
+    </string-array>
+
+    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."</string>
     <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.</string>
 
 </resources>
