@@ -34,14 +34,21 @@ public class BookDialog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bookDialogBinding = BookDialogBinding.inflate(getLayoutInflater());
         setContentView(bookDialogBinding.getRoot());
+
         int index = getIntent().getIntExtra("BOOK", 0);
         localDate = LocalDate.now().minusDays(index);
+
         bookDialogBinding.book1Cover.setBackground(AppCompatResources.getDrawable(this, post_reveal_covers[index]));
         bookDialogBinding.book1Author.setText("By " + getResources().getStringArray(R.array.authors)[index]);
         bookDialogBinding.book1Title.setText(getResources().getStringArray(R.array.titles)[index]);
         String text = "The Bookle on " + localDate.format(dateTimeFormatter) + " was...";
         bookDialogBinding.bookleMsg.setText(text);
         bookDialogBinding.bookleMsg.bringToFront();
+
+        Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+        readerIntent.putExtra("DAY", localDate.toString());
+        bookDialogBinding.book1Cover.setOnClickListener(view -> startActivity(readerIntent));
+
         bookDialogBinding.amazonButton.setOnClickListener(view -> open_link(index));
         bookDialogBinding.backButton.setOnClickListener(view -> finish());
         bookDialogBinding.shareButton.setOnClickListener(view -> clipboard(index));

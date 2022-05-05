@@ -73,7 +73,10 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
             if (index == 0) {
                 if (!sharedPreferences.getBoolean(getString(R.string.reveal), false)) {
-                    startActivity(new Intent(getApplicationContext(), Reader.class));
+                    Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+                    String today = LocalDate.now().toString();
+                    readerIntent.putExtra("DAY", today);
+                    startActivity(readerIntent);
                     return;
                 }
             }

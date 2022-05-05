@@ -51,7 +51,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
             void onCoverClick(int position);
         }
 
-
     }
 
     public SimpleAdapter(Context context, SimpleViewHolder.OnCoverClickListener onCoverClickListener) {

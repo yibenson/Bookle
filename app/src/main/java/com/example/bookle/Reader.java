@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 //import android.icu.text.SimpleDateFormat;
 import java.text.SimpleDateFormat;
 //import android.icu.util.Calendar;
+import java.time.LocalDate;
 import java.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,12 +39,13 @@ public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
     DatabaseReference databaseReference;
+    String today;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
-        ereaderBinding.backButton.setOnClickListener(view -> close());
+        ereaderBinding.backButton.setOnClickListener(view -> finish());
         ereaderBinding.appName.setOnClickListener(view -> close());
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
@@ -60,30 +62,23 @@ public class Reader extends AppCompatActivity {
             });
         }
 
-        // Loads ereader with HTML text from Firebase
-        loadText();
+        /* Loads Reader with HTML rich text from Firebase */
+        String day = getIntent().getStringExtra("DAY");
+        loadText(day);
     }
 
-    private void loadText() {
+    private void loadText(String day) {
         /* Sets textsize as recorded in Shared Preferences */
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
 
-        /* Fills reader textview with text from Firebase
-        String today = sharedPref.getString("date", "");
-        //if (today == "") {
-            Log.e("date", "Error getting today's date");
-        }
-        // FIXME: Ereader date hardcoded here so it doesn't break!
-
-         */
-        String today = "04-29-2022";
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Books").child(today).child("text").get().addOnCompleteListener(task -> {
+        databaseReference.child("Books").child(day).child("text").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
+                // TODO: Looks like this case isn't hit if the day doesn't exist on firebase ):
                 Log.e("firebase", "Error getting data", task.getException());
+                ereaderBinding.readerText.setText("This Bookle is not yet available, sorry!");
             }
             else {
                 String raw = String.valueOf(task.getResult().getValue());

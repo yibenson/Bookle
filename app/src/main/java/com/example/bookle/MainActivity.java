@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
         authenticate();
         setDarkMode();
-        setToday();
         setCover();
 
+        Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+        String today = LocalDate.now().toString();
+        readerIntent.putExtra("DAY", today);
 
-        binding.cover.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Reader.class)));
+        binding.cover.setOnClickListener(view -> startActivity(readerIntent));
 
         binding.helpIcon.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Help.class)));
 
@@ -70,19 +73,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-    }
-
-    private void setToday() {
-        // Following code based on
-        // https://medium.com/@shayma_92409/display-the-current-date-android-studio-f582bf14f908
-        String today;
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        today = dateFormat.format(calendar.getTime());
-
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        sharedPref.edit().putString("date", today).apply();
     }
 
     private void setCover() {
