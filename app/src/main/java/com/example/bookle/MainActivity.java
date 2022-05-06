@@ -22,9 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 

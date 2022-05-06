@@ -89,7 +89,7 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
         <item>The Girl Who Fell From The Sky</item>
     </string-array>
 
-    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."</string>
+    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n\"%1$s\"</string>
     <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.</string>
 
 </resources>

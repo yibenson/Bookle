@@ -37,6 +37,8 @@ public class BookToday extends AppCompatActivity {
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
+    private String amazonLink;
+    private String opener;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -49,8 +51,8 @@ public class BookToday extends AppCompatActivity {
         LocalTime midnight = LocalTime.MIDNIGHT.minusNanos(1);
         long diff = Duration.between(localTime, midnight).toMillis();
 
-        /* Retrieve today's cover image from database. */
-        displayBook();
+        //Set cover, title, and author for today's Bookle
+        getDatabaseValues();
 
         setDarkMode();
 
@@ -77,7 +79,7 @@ public class BookToday extends AppCompatActivity {
         binding.shareButton.setOnClickListener(view -> clipboard());
     }
 
-    private void displayBook() {
+    private void getDatabaseValues() {
         String today = LocalDate.now().toString();
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(today);
@@ -112,6 +114,24 @@ public class BookToday extends AppCompatActivity {
             }
         });
 
+        databaseToday.child("buy").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting buy data", task.getException());
+            }
+            else {
+                amazonLink = String.valueOf(task.getResult().getValue());
+            }
+        });
+
+        databaseToday.child("opener").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting opener data", task.getException());
+            }
+            else {
+                opener = String.valueOf(task.getResult().getValue());
+            }
+        });
+
     }
 
     public void close(View view) {
@@ -124,7 +144,7 @@ public class BookToday extends AppCompatActivity {
 
     private void clipboard() {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        String text = getString(R.string.share_book);
+        String text = getString(R.string.share_book, opener);
 
         myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);
@@ -142,8 +162,7 @@ public class BookToday extends AppCompatActivity {
     }
 
     private void open_link() {
-        String[] amazon_links = getResources().getStringArray(R.array.amazon_links);
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazon_links[0]));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazonLink));
         startActivity(browserIntent);
     }
 

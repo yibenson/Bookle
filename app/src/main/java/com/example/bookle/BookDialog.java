@@ -24,6 +24,7 @@ public class BookDialog extends AppCompatActivity {
     private ClipboardManager myClipboard;
     private ClipData myClip;
 
+    // TODO: Hardcoded Bookle
     int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd");
@@ -38,6 +39,7 @@ public class BookDialog extends AppCompatActivity {
         int index = getIntent().getIntExtra("BOOK", 0);
         localDate = LocalDate.now().minusDays(index);
 
+        // TODO: Hardcoded Bookle
         bookDialogBinding.book1Cover.setBackground(AppCompatResources.getDrawable(this, post_reveal_covers[index]));
         bookDialogBinding.book1Author.setText("By " + getResources().getStringArray(R.array.authors)[index]);
         bookDialogBinding.book1Title.setText(getResources().getStringArray(R.array.titles)[index]);
@@ -66,6 +68,7 @@ public class BookDialog extends AppCompatActivity {
     }
 
     private void open_link(int i) {
+        // TODO: Hardcoded Bookle
         String[] amazon_links = getResources().getStringArray(R.array.amazon_links);
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazon_links[i]));
         startActivity(browserIntent);
@@ -73,6 +76,7 @@ public class BookDialog extends AppCompatActivity {
 
     private void clipboard(int i) {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        // TODO: Hardcoded Bookle
         String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
                 getResources().getStringArray(R.array.titles)[i],
                 getResources().getStringArray(R.array.authors)[i]);

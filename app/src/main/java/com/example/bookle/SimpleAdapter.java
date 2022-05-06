@@ -20,6 +20,7 @@ import java.util.List;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
+    // TODO: Hardcoded Bookle
     int[] pre_reveal_covers = new int[]{ R.drawable.mysterybook, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
     int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
 
@@ -29,7 +30,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     private SimpleViewHolder.OnCoverClickListener onCoverClickListener;
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         public ImageView imageView;
         private OnCoverClickListener onCoverClickListener;
         public int number;
@@ -54,7 +54,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     }
 
     public SimpleAdapter(Context context, SimpleViewHolder.OnCoverClickListener onCoverClickListener, String dayZero) {
-        //Count is the number of Bookles that exist
+        //Find the number of Bookles that exist
         LocalDate today = LocalDate.now();
         LocalDate firstDay = LocalDate.parse(dayZero);
         int count = Period.between(firstDay, today).getDays();
@@ -77,6 +77,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         // holder.title.setText(mItems.get(position).toString());
         holder.number = mItems.get(position);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getString(R.string.app_name), Context.MODE_PRIVATE);
+        // TODO: Hardcoded Bookle
         if (sharedPreferences.getBoolean(mContext.getString(R.string.reveal), false)) {
             holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, post_reveal_covers[position]));
         } else {
