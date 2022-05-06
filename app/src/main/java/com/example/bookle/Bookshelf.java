@@ -19,10 +19,13 @@ import com.example.bookle.databinding.BookshelfBinding;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
+    private final String DAY_ZERO = "2022-04-28";
+    private final int DAYS_IN_WEEK = 7;
     BookshelfBinding binding;
     SimpleAdapter mAdapter;
 
@@ -35,18 +38,26 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
         //Your RecyclerView.Adapter
-        mAdapter = new SimpleAdapter(this, this::onCoverClick);
+        mAdapter = new SimpleAdapter(this, this::onCoverClick, DAY_ZERO);
 
         //This is the code to provide a sectioned grid
         List<SectionedGridRecyclerViewAdapter.Section> sections =
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
 
-        //Sections
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Week 1"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(7,"Week 2"));
-        //sections.add(new SectionedGridRecyclerViewAdapter.Section(14,"Week 3"));
-        //sections.add(new SectionedGridRecyclerViewAdapter.Section(21,"Week 4"));
-        //sections.add(new SectionedGridRecyclerViewAdapter.Section(28,"Week 5"));
+        //Count is number of Bookles so far
+        LocalDate today = LocalDate.now();
+        LocalDate dayZero = LocalDate.parse(DAY_ZERO);
+        int count = Period.between(dayZero, today).getDays();
+
+        //This line is a trick to ceiling divide
+        int numberOfSections = ((count + DAYS_IN_WEEK - 1) / DAYS_IN_WEEK);
+
+        String title;
+        for (int i = 0; i < numberOfSections; i++) {
+            title = String.format("Week %d", numberOfSections - i);
+            sections.add(new SectionedGridRecyclerViewAdapter
+                    .Section(i * DAYS_IN_WEEK, title));
+        }
 
         //Add your adapter to the sectionAdapter
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];

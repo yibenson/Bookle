@@ -50,7 +50,7 @@ public class BookToday extends AppCompatActivity {
         long diff = Duration.between(localTime, midnight).toMillis();
 
         /* Retrieve today's cover image from database. */
-        displayTodaysBook();
+        displayBook();
 
         setDarkMode();
 
@@ -77,60 +77,49 @@ public class BookToday extends AppCompatActivity {
         binding.shareButton.setOnClickListener(view -> clipboard());
     }
 
-    private void displayTodaysBook() {
-        /* Get today's date. */
-        SharedPreferences sharedPref;
-        sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        /*
-        String today = sharedPref.getString("date", "");
-        if (today == "") {
-            Log.e("date", "Error getting today's date");
-        }
-        // FIXME: Ereader date hardcoded here so it doesn't break!
+    private void displayBook() {
+        String today = LocalDate.now().toString();
+        DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
+                .child("Books").child(today);
 
-         */
-        String today;
-        today = LocalDate.now().toString();
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        ImageView cover = (ImageView) findViewById(R.id.book0_cover);
-        TextView title = (TextView) findViewById(R.id.book0_title);
-        TextView author = (TextView) findViewById(R.id.book0_author);
-
-        databaseReference.child("Books").child(today).child("title").get().addOnCompleteListener(task -> {
+        databaseToday.child("title").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting title data", task.getException());
             }
             else {
                 String raw = String.valueOf(task.getResult().getValue());
-                title.setText(raw);
+                binding.book0Title.setText(raw);
             }
         });
 
-        databaseReference.child("Books").child(today).child("author").get().addOnCompleteListener(task -> {
+        databaseToday.child("author").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting author data", task.getException());
             }
             else {
                 String raw = String.valueOf(task.getResult().getValue());
-                author.setText("by " + raw);
+                binding.book0Author.setText("by " + raw);
             }
         });
 
-        databaseReference.child("Books").child(today).child("cover").get().addOnCompleteListener(task -> {
+        databaseToday.child("cover").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting cover data", task.getException());
             }
             else {
                 String imageUri = String.valueOf(task.getResult().getValue());
-                Picasso.get().load(imageUri).into(cover);
+                Picasso.get().load(imageUri).into(binding.book0Cover);
             }
         });
 
     }
 
     public void close(View view) {
-        startActivity(new Intent(this, Reader.class));
+        Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+        String today = LocalDate.now().toString();
+        readerIntent.putExtra("DAY", today);
+        startActivity(readerIntent);
+        finish();
     }
 
     private void clipboard() {

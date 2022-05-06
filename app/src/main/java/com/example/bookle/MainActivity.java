@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bookle.databinding.ActivityMainBinding;
@@ -16,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -39,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
         String today = LocalDate.now().toString();
         readerIntent.putExtra("DAY", today);
-
         binding.cover.setOnClickListener(view -> startActivity(readerIntent));
 
         binding.helpIcon.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Help.class)));
@@ -81,7 +85,20 @@ public class MainActivity extends AppCompatActivity {
         if (!revealed) {
             binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
         } else {
-            binding.cover.setBackground(getDrawable(R.drawable.prideprejudice));
+            String today = LocalDate.now().toString();
+            DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
+                    .child("Books").child(today);
+
+            databaseToday.child("cover").get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
+                    Log.e("firebase", "Error getting cover data", task.getException());
+                }
+                else {
+                    String imageUri = String.valueOf(task.getResult().getValue());
+                    Picasso.get().load(imageUri).into(binding.cover);
+                }
+            });
         }
     }
 

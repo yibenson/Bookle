@@ -77,7 +77,6 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
 
     public static class SectionViewHolder extends RecyclerView.ViewHolder {
-
         public TextView title;
 
         public SectionViewHolder(View view, int mTextResourceid) {

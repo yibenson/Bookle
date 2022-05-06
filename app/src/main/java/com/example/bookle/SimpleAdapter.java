@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,8 @@ import java.util.List;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
-    private int COUNT = 14;
     int[] pre_reveal_covers = new int[]{ R.drawable.mysterybook, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
     int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
-
 
     private final Context mContext;
     public final List<Integer> mItems;
@@ -53,10 +53,15 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     }
 
-    public SimpleAdapter(Context context, SimpleViewHolder.OnCoverClickListener onCoverClickListener) {
+    public SimpleAdapter(Context context, SimpleViewHolder.OnCoverClickListener onCoverClickListener, String dayZero) {
+        //Count is the number of Bookles that exist
+        LocalDate today = LocalDate.now();
+        LocalDate firstDay = LocalDate.parse(dayZero);
+        int count = Period.between(firstDay, today).getDays();
+
         mContext = context;
-        mItems = new ArrayList<Integer>(COUNT);
-        for (int i = 0; i < COUNT; i++) {
+        mItems = new ArrayList<Integer>(count);
+        for (int i = 0; i < count; i++) {
             addItem(i);
         }
         this.onCoverClickListener = onCoverClickListener;

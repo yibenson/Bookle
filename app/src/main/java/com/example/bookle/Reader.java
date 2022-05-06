@@ -39,13 +39,12 @@ public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
     DatabaseReference databaseReference;
-    String today;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
-        ereaderBinding.backButton.setOnClickListener(view -> finish());
+        ereaderBinding.backButton.setOnClickListener(view -> close());
         ereaderBinding.appName.setOnClickListener(view -> close());
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
@@ -139,6 +138,7 @@ public class Reader extends AppCompatActivity {
     public void reveal(View view) {
         sharedPref.edit().putBoolean(getString(R.string.reveal), true).apply();
         startActivity(new Intent(getApplicationContext(), BookToday.class));
+        finish();
     }
 
 }
