@@ -2,6 +2,7 @@ package com.example.bookle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,10 @@ import android.widget.ImageView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -20,10 +25,6 @@ import java.util.List;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
-    // TODO: Hardcoded Bookle
-    int[] pre_reveal_covers = new int[]{ R.drawable.mysterybook, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
-    int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
-
     private final Context mContext;
     public final List<Integer> mItems;
     private int mCurrentItemId = 0;
@@ -57,11 +58,11 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         //Find the number of Bookles that exist
         LocalDate today = LocalDate.now();
         LocalDate firstDay = LocalDate.parse(dayZero);
-        int count = Period.between(firstDay, today).getDays();
+        int numBookles = Period.between(firstDay, today).getDays();
 
         mContext = context;
-        mItems = new ArrayList<Integer>(count);
-        for (int i = 0; i < count; i++) {
+        mItems = new ArrayList<Integer>(numBookles);
+        for (int i = 0; i < numBookles; i++) {
             addItem(i);
         }
         this.onCoverClickListener = onCoverClickListener;
@@ -77,11 +78,22 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         // holder.title.setText(mItems.get(position).toString());
         holder.number = mItems.get(position);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getString(R.string.app_name), Context.MODE_PRIVATE);
-        // TODO: Hardcoded Bookle
-        if (sharedPreferences.getBoolean(mContext.getString(R.string.reveal), false)) {
-            holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, post_reveal_covers[position]));
+        if ((position == 0) && !sharedPreferences.getBoolean(mContext.getString(R.string.reveal), false)) {
+            holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
         } else {
-            holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, pre_reveal_covers[position]));
+            String day = LocalDate.now().minusDays(position).toString();
+            DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
+                    .child("Books").child(day);
+            databaseToday.child("cover").get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting cover data", task.getException());
+                }
+                else {
+                    String imageUri = String.valueOf(task.getResult().getValue());
+                    Picasso.get().load(imageUri).into(holder.imageView);
+                }
+            });
+
         }
     }
 

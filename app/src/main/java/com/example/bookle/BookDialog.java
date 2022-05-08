@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.BookDialogBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,9 +27,9 @@ public class BookDialog extends AppCompatActivity {
     BookDialogBinding bookDialogBinding;
     private ClipboardManager myClipboard;
     private ClipData myClip;
-
-    // TODO: Hardcoded Bookle
-    int[] post_reveal_covers = new int[]{ R.drawable.prideprejudice, R.drawable.hmart, R.drawable.becoming, R.drawable.midnightlibrary, R.drawable.sociopathnextdoor, R.drawable.lastgraduatejpg, R.drawable.candyhouse, R.drawable.sevenhusbands, R.drawable.parisapartment, R.drawable.betweentwokingdoms, R.drawable.remindersofhim, R.drawable.seaoftranquility, R.drawable.vanishinghalf, R.drawable.thegirlwhofellfromthesky};
+    private String amazonLink;
+    private String title;
+    private String author;
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd");
     LocalDate localDate;
@@ -39,10 +43,8 @@ public class BookDialog extends AppCompatActivity {
         int index = getIntent().getIntExtra("BOOK", 0);
         localDate = LocalDate.now().minusDays(index);
 
-        // TODO: Hardcoded Bookle
-        bookDialogBinding.book1Cover.setBackground(AppCompatResources.getDrawable(this, post_reveal_covers[index]));
-        bookDialogBinding.book1Author.setText("By " + getResources().getStringArray(R.array.authors)[index]);
-        bookDialogBinding.book1Title.setText(getResources().getStringArray(R.array.titles)[index]);
+        getDatabaseValues();
+
         String text = "The Bookle on " + localDate.format(dateTimeFormatter) + " was...";
         bookDialogBinding.bookleMsg.setText(text);
         bookDialogBinding.bookleMsg.bringToFront();
@@ -57,6 +59,52 @@ public class BookDialog extends AppCompatActivity {
         setDarkMode();
     }
 
+    private void getDatabaseValues() {
+        String day = localDate.toString();
+        DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
+                .child("Books").child(day);
+
+        databaseToday.child("title").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting title data", task.getException());
+            }
+            else {
+                title = String.valueOf(task.getResult().getValue());
+                bookDialogBinding.book1Title.setText(title);
+            }
+        });
+
+        databaseToday.child("author").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting author data", task.getException());
+            }
+            else {
+                author = String.valueOf(task.getResult().getValue());
+                bookDialogBinding.book1Author.setText("by " + author);
+            }
+        });
+
+        databaseToday.child("cover").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting cover data", task.getException());
+            }
+            else {
+                String imageUri = String.valueOf(task.getResult().getValue());
+                Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
+            }
+        });
+
+        databaseToday.child("buy").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting buy data", task.getException());
+            }
+            else {
+                amazonLink = String.valueOf(task.getResult().getValue());
+            }
+        });
+
+    }
+
     public void setDarkMode() {
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
@@ -68,18 +116,14 @@ public class BookDialog extends AppCompatActivity {
     }
 
     private void open_link(int i) {
-        // TODO: Hardcoded Bookle
-        String[] amazon_links = getResources().getStringArray(R.array.amazon_links);
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazon_links[i]));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazonLink));
         startActivity(browserIntent);
     }
 
     private void clipboard(int i) {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        // TODO: Hardcoded Bookle
         String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
-                getResources().getStringArray(R.array.titles)[i],
-                getResources().getStringArray(R.array.authors)[i]);
+                title, author);
 
         myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);

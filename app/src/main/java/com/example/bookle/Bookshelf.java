@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
-    private final String DAY_ZERO = "2022-04-28";
+    // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
+    private final String DAY_ZERO = "2022-05-02";
     private final int DAYS_IN_WEEK = 7;
     BookshelfBinding binding;
     SimpleAdapter mAdapter;
@@ -52,6 +53,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         //This line is a trick to ceiling divide
         int numberOfSections = ((count + DAYS_IN_WEEK - 1) / DAYS_IN_WEEK);
 
+        //Add a section for each week with at least one Bookle
         String title;
         for (int i = 0; i < numberOfSections; i++) {
             title = String.format("Week %d", numberOfSections - i);
