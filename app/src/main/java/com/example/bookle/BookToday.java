@@ -37,6 +37,7 @@ public class BookToday extends AppCompatActivity {
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
+
     private String amazonLink;
     private String opener;
 
@@ -54,7 +55,7 @@ public class BookToday extends AppCompatActivity {
         //Set cover, title, and author for today's Bookle
         getDatabaseValues();
 
-        setDarkMode();
+        Utils.setDarkMode(this);
 
         new CountDownTimer(diff, 1000) {
 
@@ -149,16 +150,6 @@ public class BookToday extends AppCompatActivity {
         myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);
         Toast.makeText(this, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
-    }
-
-    public void setDarkMode() {
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
-        if (darkmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     private void open_link() {

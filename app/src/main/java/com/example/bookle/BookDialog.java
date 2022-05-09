@@ -27,6 +27,7 @@ public class BookDialog extends AppCompatActivity {
     BookDialogBinding bookDialogBinding;
     private ClipboardManager myClipboard;
     private ClipData myClip;
+
     private String amazonLink;
     private String title;
     private String author;
@@ -53,10 +54,11 @@ public class BookDialog extends AppCompatActivity {
         readerIntent.putExtra("DAY", localDate.toString());
         bookDialogBinding.book1Cover.setOnClickListener(view -> startActivity(readerIntent));
 
-        bookDialogBinding.amazonButton.setOnClickListener(view -> open_link(index));
+        bookDialogBinding.amazonButton.setOnClickListener(view -> open_link());
         bookDialogBinding.backButton.setOnClickListener(view -> finish());
-        bookDialogBinding.shareButton.setOnClickListener(view -> clipboard(index));
-        setDarkMode();
+        bookDialogBinding.shareButton.setOnClickListener(view -> clipboard());
+
+        Utils.setDarkMode(this);
     }
 
     private void getDatabaseValues() {
@@ -105,22 +107,12 @@ public class BookDialog extends AppCompatActivity {
 
     }
 
-    public void setDarkMode() {
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
-        if (darkmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-
-    private void open_link(int i) {
+    private void open_link() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazonLink));
         startActivity(browserIntent);
     }
 
-    private void clipboard(int i) {
+    private void clipboard() {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
                 title, author);

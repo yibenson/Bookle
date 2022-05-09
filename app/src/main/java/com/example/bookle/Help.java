@@ -21,16 +21,6 @@ public class Help extends AppCompatActivity {
         setContentView(helpBinding.getRoot());
         helpBinding.helpClose.setOnClickListener(view -> finish());
 
-        setDarkMode();
-    }
-
-    public void setDarkMode() {
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
-        if (darkmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        Utils.setDarkMode(this);
     }
 }

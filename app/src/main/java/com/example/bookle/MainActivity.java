@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         authenticate();
-        setDarkMode();
+        Utils.setDarkMode(this);
         setCover();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
@@ -67,23 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void setDarkMode() {
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean darkmode = sharedPref.getBoolean(getString(R.string.darkmode), false);
-        if (darkmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-
     private void setCover() {
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean revealed = sharedPref.getBoolean(getString(R.string.reveal), false);
+        String today = LocalDate.now().toString();
+
+        boolean revealed = Utils.isRevealed(this);
         if (!revealed) {
             binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
         } else {
-            String today = LocalDate.now().toString();
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                     .child("Books").child(today);
 
