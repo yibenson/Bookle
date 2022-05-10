@@ -23,11 +23,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private FirebaseAuth mAuth;
+
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        authenticate();
+        // authenticate();
         Utils.setDarkMode(this);
         setCover();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        String today = LocalDate.now().toString();
+        String today = LocalDate.now().format(dateTimeFormatter);
         readerIntent.putExtra("DAY", today);
         binding.cover.setOnClickListener(view -> startActivity(readerIntent));
 
@@ -68,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCover() {
-        String today = LocalDate.now().toString();
-
+        String today = LocalDate.now().format(dateTimeFormatter);
         boolean revealed = Utils.isRevealed(this);
         if (!revealed) {
             binding.cover.setBackground(getDrawable(R.drawable.mysterybook));

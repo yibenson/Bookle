@@ -87,11 +87,12 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
             if (index == 0) {
                 boolean revealed = Utils.isRevealed(this);
-                if (!revealed) {
+                if (!revealed ) {
                     //If today's unrevealed Bookle is clicked, open the reader
                     Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
                     String today = LocalDate.now().toString();
                     readerIntent.putExtra("DAY", today);
+                    readerIntent.putExtra("SOURCE", "BOOKSHELF");
                     startActivity(readerIntent);
                     return;
                 }
@@ -99,6 +100,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             //Otherwise, open a book dialog for this Bookle
             Intent intent = new Intent(getApplicationContext(), BookDialog.class);
             intent.putExtra("BOOK", index);
+            intent.putExtra("SOURCE", "BOOKSHELF");
             startActivity(intent);
         }
     }

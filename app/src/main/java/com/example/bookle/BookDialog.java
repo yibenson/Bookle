@@ -32,7 +32,7 @@ public class BookDialog extends AppCompatActivity {
     private String title;
     private String author;
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd");
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate localDate;
 
     @Override
@@ -51,7 +51,8 @@ public class BookDialog extends AppCompatActivity {
         bookDialogBinding.bookleMsg.bringToFront();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        readerIntent.putExtra("DAY", localDate.toString());
+        readerIntent.putExtra("DAY", localDate.format(dateTimeFormatter));
+        readerIntent.putExtra("SOURCE", "BOOKSHELF");
         bookDialogBinding.book1Cover.setOnClickListener(view -> startActivity(readerIntent));
 
         bookDialogBinding.amazonButton.setOnClickListener(view -> open_link());
@@ -62,7 +63,7 @@ public class BookDialog extends AppCompatActivity {
     }
 
     private void getDatabaseValues() {
-        String day = localDate.toString();
+        String day = localDate.format(dateTimeFormatter);
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
@@ -91,6 +92,9 @@ public class BookDialog extends AppCompatActivity {
 
     private void clipboard() {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        author = bookDialogBinding.book1Author.getText().toString();
+        title = bookDialogBinding.book1Title.getText().toString();
+
         String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
                 title, author);
 
