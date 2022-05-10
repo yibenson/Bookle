@@ -91,6 +91,7 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
 
     <string name="share_book">Today\'s Bookle opened with the sentence:\n\n\"%1$s\"\nCan you guess the book? Download the app here: https://github.com/yibenson/Bookle</string>
     <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.\nDownload the app here: https://github.com/yibenson/Bookle</string>
+    <string name="author">by %1$s</string>
     <string name="guess">Guess</string>
     <string name="last_guess_date">Last Guess Date</string>
     <string name="correct_guess">Correct Guess</string>

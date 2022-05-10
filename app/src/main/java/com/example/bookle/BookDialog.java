@@ -67,12 +67,24 @@ public class BookDialog extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
-        Utils.databaseMethod actionTitle = (title) ->
+        Utils.databaseMethod actionTitle = new Utils.databaseMethod() {
+            @Override
+            public void method(String string) {
+                title = string;
                 bookDialogBinding.book1Title.setText(title);
+            }
+        };
+
         Utils.doFromDatabase(databaseToday, "title", actionTitle);
 
-        Utils.databaseMethod actionAuthor = (author) ->
-                bookDialogBinding.book1Author.setText("by " + author);
+        Utils.databaseMethod actionAuthor = new Utils.databaseMethod() {
+            @Override
+            public void method(String string) {
+                author = string;
+                bookDialogBinding.book1Author.setText(getString(R.string.author, author));
+            }
+        };
+
         Utils.doFromDatabase(databaseToday, "author", actionAuthor);
 
         Utils.databaseMethod actionCover = (imageUri) ->
@@ -92,8 +104,6 @@ public class BookDialog extends AppCompatActivity {
 
     private void clipboard() {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        author = bookDialogBinding.book1Author.getText().toString();
-        title = bookDialogBinding.book1Title.getText().toString();
 
         String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
                 title, author);
