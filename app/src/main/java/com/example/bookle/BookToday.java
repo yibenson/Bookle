@@ -2,8 +2,6 @@ package com.example.bookle;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.ActivityBookTodayBinding;
 import com.google.firebase.database.DatabaseReference;
@@ -12,17 +10,12 @@ import com.squareup.picasso.Picasso;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
-import android.widget.ImageView;
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -88,8 +81,7 @@ public class BookToday extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(today);
 
-        Utils.databaseMethod actionTitle = (title) ->
-                binding.book0Title.setText(title);
+        Utils.databaseMethod actionTitle = (title) -> binding.book0Title.setText(title);
         Utils.doFromDatabase(databaseToday, "title", actionTitle);
 
         Utils.databaseMethod actionAuthor = (author) ->
@@ -100,13 +92,11 @@ public class BookToday extends AppCompatActivity {
                 Picasso.get().load(imageUri).into(binding.book0Cover);
         Utils.doFromDatabase(databaseToday, "cover", actionCover);
 
-        Utils.databaseMethod actionBuy = (buy) ->
-                amazonLink = buy;
+        Utils.databaseMethod actionBuy = (buy) -> amazonLink = buy;
         Utils.doFromDatabase(databaseToday, "buy", actionBuy);
 
-        Utils.databaseMethod actionOpener = (o) ->
-                opener = o;
-        Utils.doFromDatabase(databaseToday, "buy", actionOpener);
+        Utils.databaseMethod actionOpener = (o) -> opener = o;
+        Utils.doFromDatabase(databaseToday, "opener", actionOpener);
 
     }
 

@@ -79,7 +79,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         holder.number = mItems.get(position);
 
         boolean revealed = Utils.isRevealed(mContext);
-
         if ((position == 0) && !revealed) {
             holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
         } else {
