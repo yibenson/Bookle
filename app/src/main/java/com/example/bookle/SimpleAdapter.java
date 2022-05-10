@@ -86,15 +86,10 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
             String day = LocalDate.now().minusDays(position).toString();
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                     .child("Books").child(day);
-            databaseToday.child("cover").get().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting cover data", task.getException());
-                }
-                else {
-                    String imageUri = String.valueOf(task.getResult().getValue());
+
+            Utils.databaseMethod actionCover = (imageUri) ->
                     Picasso.get().load(imageUri).into(holder.imageView);
-                }
-            });
+            Utils.doFromDatabase(databaseToday, "cover", actionCover);
 
         }
     }

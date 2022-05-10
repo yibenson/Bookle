@@ -38,7 +38,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
-    DatabaseReference databaseReference;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,18 +71,12 @@ public class Reader extends AppCompatActivity {
         float textsize = sharedPref.getFloat(getString(R.string.textsize), 20f);
         ereaderBinding.readerText.setTextSize(textsize);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Books").child(day).child("text").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                // TODO: Looks like this case isn't hit if the day doesn't exist on firebase ):
-                Log.e("firebase", "Error getting data", task.getException());
-                ereaderBinding.readerText.setText("This Bookle is not yet available, sorry!");
-            }
-            else {
-                String raw = String.valueOf(task.getResult().getValue());
+        DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
+                .child("Books").child(day);
+
+        Utils.databaseMethod actionText = (raw) ->
                 ereaderBinding.readerText.setText(Html.fromHtml(raw, Html.FROM_HTML_MODE_LEGACY));
-            }
-        });
+        Utils.doFromDatabase(databaseToday, "text", actionText);
     }
 
     private void showBottomSheetDialog() {

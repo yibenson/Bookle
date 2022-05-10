@@ -85,53 +85,25 @@ public class BookToday extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(today);
 
-        databaseToday.child("title").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting title data", task.getException());
-            }
-            else {
-                String raw = String.valueOf(task.getResult().getValue());
-                binding.book0Title.setText(raw);
-            }
-        });
+        Utils.databaseMethod actionTitle = (title) ->
+                binding.book0Title.setText(title);
+        Utils.doFromDatabase(databaseToday, "title", actionTitle);
 
-        databaseToday.child("author").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting author data", task.getException());
-            }
-            else {
-                String raw = String.valueOf(task.getResult().getValue());
-                binding.book0Author.setText("by " + raw);
-            }
-        });
+        Utils.databaseMethod actionAuthor = (author) ->
+                binding.book0Author.setText("by " + author);
+        Utils.doFromDatabase(databaseToday, "author", actionAuthor);
 
-        databaseToday.child("cover").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting cover data", task.getException());
-            }
-            else {
-                String imageUri = String.valueOf(task.getResult().getValue());
+        Utils.databaseMethod actionCover = (imageUri) ->
                 Picasso.get().load(imageUri).into(binding.book0Cover);
-            }
-        });
+        Utils.doFromDatabase(databaseToday, "cover", actionCover);
 
-        databaseToday.child("buy").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting buy data", task.getException());
-            }
-            else {
-                amazonLink = String.valueOf(task.getResult().getValue());
-            }
-        });
+        Utils.databaseMethod actionBuy = (buy) ->
+                amazonLink = buy;
+        Utils.doFromDatabase(databaseToday, "buy", actionBuy);
 
-        databaseToday.child("opener").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting opener data", task.getException());
-            }
-            else {
-                opener = String.valueOf(task.getResult().getValue());
-            }
-        });
+        Utils.databaseMethod actionOpener = (o) ->
+                opener = o;
+        Utils.doFromDatabase(databaseToday, "buy", actionOpener);
 
     }
 
