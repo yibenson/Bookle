@@ -66,21 +66,38 @@ public class BookDialog extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
-        Utils.databaseMethod actionTitle = (title) ->
+        Utils.databaseMethod action = (title) ->
                 bookDialogBinding.book1Title.setText(title);
-        Utils.doFromDatabase(databaseToday, "title", actionTitle);
+        Utils.doFromDatabase(databaseToday, "title", action);
 
-        Utils.databaseMethod actionAuthor = (author) ->
+        databaseToday.child("author").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting author data", task.getException());
+            }
+            else {
+                author = String.valueOf(task.getResult().getValue());
                 bookDialogBinding.book1Author.setText("by " + author);
-        Utils.doFromDatabase(databaseToday, "author", actionAuthor);
+            }
+        });
 
-        Utils.databaseMethod actionCover = (imageUri) ->
+        databaseToday.child("cover").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting cover data", task.getException());
+            }
+            else {
+                String imageUri = String.valueOf(task.getResult().getValue());
                 Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
-        Utils.doFromDatabase(databaseToday, "cover", actionCover);
+            }
+        });
 
-        Utils.databaseMethod actionBuy = (buy) ->
-                amazonLink = buy;
-        Utils.doFromDatabase(databaseToday, "buy", actionBuy);
+        databaseToday.child("buy").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting buy data", task.getException());
+            }
+            else {
+                amazonLink = String.valueOf(task.getResult().getValue());
+            }
+        });
 
     }
 
