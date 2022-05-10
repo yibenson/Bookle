@@ -66,38 +66,21 @@ public class BookDialog extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
-        Utils.databaseMethod action = (title) ->
+        Utils.databaseMethod actionTitle = (title) ->
                 bookDialogBinding.book1Title.setText(title);
-        Utils.doFromDatabase(databaseToday, "title", action);
+        Utils.doFromDatabase(databaseToday, "title", actionTitle);
 
-        databaseToday.child("author").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting author data", task.getException());
-            }
-            else {
-                author = String.valueOf(task.getResult().getValue());
+        Utils.databaseMethod actionAuthor = (author) ->
                 bookDialogBinding.book1Author.setText("by " + author);
-            }
-        });
+        Utils.doFromDatabase(databaseToday, "author", actionAuthor);
 
-        databaseToday.child("cover").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting cover data", task.getException());
-            }
-            else {
-                String imageUri = String.valueOf(task.getResult().getValue());
+        Utils.databaseMethod actionCover = (imageUri) ->
                 Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
-            }
-        });
+        Utils.doFromDatabase(databaseToday, "cover", actionCover);
 
-        databaseToday.child("buy").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting buy data", task.getException());
-            }
-            else {
-                amazonLink = String.valueOf(task.getResult().getValue());
-            }
-        });
+        Utils.databaseMethod actionBuy = (buy) ->
+                amazonLink = buy;
+        Utils.doFromDatabase(databaseToday, "buy", actionBuy);
 
     }
 
