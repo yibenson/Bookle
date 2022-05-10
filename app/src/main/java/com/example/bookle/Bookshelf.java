@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
-    private final String DAY_ZERO = "2022-05-03";
+    private final String DAY_ZERO = "2022-05-02";
     private final int DAYS_IN_WEEK = 7;
 
     BookshelfBinding binding;
