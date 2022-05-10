@@ -25,10 +25,12 @@ import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
-    private final String DAY_ZERO = "2022-05-02";
+    private final String DAY_ZERO = "2022-05-03";
     private final int DAYS_IN_WEEK = 7;
+
     BookshelfBinding binding;
     SimpleAdapter mAdapter;
+    LocalDate today;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,9 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
 
         //Count is number of Bookles so far
-        LocalDate today = LocalDate.now();
+        today = LocalDate.now();
         LocalDate dayZero = LocalDate.parse(DAY_ZERO);
-        int count = Period.between(dayZero, today).getDays();
+        int count = Period.between(dayZero, today).getDays() + 1;
 
         //This line is a trick to ceiling divide
         int numberOfSections = ((count + DAYS_IN_WEEK - 1) / DAYS_IN_WEEK);
@@ -81,11 +83,12 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCoverClick(int position) {
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         if (position % 8 != 0) {
             int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
             if (index == 0) {
-                if (!sharedPreferences.getBoolean(getString(R.string.reveal), false)) {
+                boolean revealed = Utils.isRevealed(this);
+                if (!revealed) {
+                    //If today's unrevealed Bookle is clicked, open the reader
                     Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
                     String today = LocalDate.now().toString();
                     readerIntent.putExtra("DAY", today);
@@ -93,6 +96,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
                     return;
                 }
             }
+            //Otherwise, open a book dialog for this Bookle
             Intent intent = new Intent(getApplicationContext(), BookDialog.class);
             intent.putExtra("BOOK", index);
             startActivity(intent);

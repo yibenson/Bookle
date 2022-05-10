@@ -49,7 +49,7 @@ public class Reader extends AppCompatActivity {
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        boolean revealed = sharedPref.getBoolean(getString(R.string.reveal), false);
+        boolean revealed = Utils.isRevealed(this);
         if (revealed) {
             ereaderBinding.reveal.setVisibility(View.GONE);
         } else {
@@ -136,7 +136,8 @@ public class Reader extends AppCompatActivity {
     }
 
     public void reveal(View view) {
-        sharedPref.edit().putBoolean(getString(R.string.reveal), true).apply();
+        String today = LocalDate.now().toString();
+        sharedPref.edit().putString(getString(R.string.reveal), today).apply();
         startActivity(new Intent(getApplicationContext(), BookToday.class));
         finish();
     }

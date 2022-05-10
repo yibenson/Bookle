@@ -58,7 +58,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         //Find the number of Bookles that exist
         LocalDate today = LocalDate.now();
         LocalDate firstDay = LocalDate.parse(dayZero);
-        int numBookles = Period.between(firstDay, today).getDays();
+        int numBookles = Period.between(firstDay, today).getDays() + 1;
 
         mContext = context;
         mItems = new ArrayList<Integer>(numBookles);
@@ -77,9 +77,12 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         // holder.title.setText(mItems.get(position).toString());
         holder.number = mItems.get(position);
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getString(R.string.app_name), Context.MODE_PRIVATE);
-        if ((position == 0) && !sharedPreferences.getBoolean(mContext.getString(R.string.reveal), false)) {
-            holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
+
+        if (position == 0) {
+            boolean revealed = Utils.isRevealed(mContext);
+            if (!revealed) {
+                holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
+            }
         } else {
             String day = LocalDate.now().minusDays(position).toString();
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
