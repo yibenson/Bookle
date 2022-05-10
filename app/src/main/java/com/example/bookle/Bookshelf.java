@@ -1,31 +1,25 @@
 package com.example.bookle;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookle.databinding.BookshelfBinding;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
-    private final String DAY_ZERO = "2022-05-03";
+    private final String DAY_ZERO = "2022-05-02";
     private final int DAYS_IN_WEEK = 7;
 
     BookshelfBinding binding;
@@ -85,16 +79,13 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     public void onCoverClick(int position) {
         if (position % 8 != 0) {
             int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
-            if (index == 0) {
-                boolean revealed = Utils.isRevealed(this);
-                if (!revealed) {
-                    //If today's unrevealed Bookle is clicked, open the reader
-                    Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-                    String today = LocalDate.now().toString();
-                    readerIntent.putExtra("DAY", today);
-                    startActivity(readerIntent);
-                    return;
-                }
+            if (index == 0 && !Utils.isRevealed(this)) {
+                //If today's unrevealed Bookle is clicked, open the reader
+                Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+                String today = LocalDate.now().toString();
+                readerIntent.putExtra("DAY", today);
+                startActivity(readerIntent);
+                return;
             }
             //Otherwise, open a book dialog for this Bookle
             Intent intent = new Intent(getApplicationContext(), BookDialog.class);
