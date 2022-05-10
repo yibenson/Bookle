@@ -78,11 +78,10 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         // holder.title.setText(mItems.get(position).toString());
         holder.number = mItems.get(position);
 
-        if (position == 0) {
-            boolean revealed = Utils.isRevealed(mContext);
-            if (!revealed) {
-                holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
-            }
+        boolean revealed = Utils.isRevealed(mContext);
+
+        if ((position == 0) && !revealed) {
+            holder.imageView.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.mysterybook));
         } else {
             String day = LocalDate.now().minusDays(position).toString();
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()

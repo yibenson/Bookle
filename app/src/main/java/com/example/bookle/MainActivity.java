@@ -77,16 +77,10 @@ public class MainActivity extends AppCompatActivity {
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                     .child("Books").child(today);
 
-            databaseToday.child("cover").get().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
-                    Log.e("firebase", "Error getting cover data", task.getException());
-                }
-                else {
-                    String imageUri = String.valueOf(task.getResult().getValue());
+            Utils.databaseMethod action = (imageUri) ->
                     Picasso.get().load(imageUri).into(binding.cover);
-                }
-            });
+            Utils.doFromDatabase(databaseToday, "cover", action);
+
         }
     }
 

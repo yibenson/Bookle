@@ -66,15 +66,9 @@ public class BookDialog extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
-        databaseToday.child("title").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting title data", task.getException());
-            }
-            else {
-                title = String.valueOf(task.getResult().getValue());
+        Utils.databaseMethod action = (title) ->
                 bookDialogBinding.book1Title.setText(title);
-            }
-        });
+        Utils.doFromDatabase(databaseToday, "title", action);
 
         databaseToday.child("author").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
