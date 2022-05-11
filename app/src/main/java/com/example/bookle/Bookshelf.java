@@ -121,15 +121,20 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     @Override
     public void onCoverClick(int position) {
         Log.v("Cover", "Clicked on position: " + position);
-        int numBooks = mAdapter.mItems.size();
+        int numBooks = 1;
+        for (int i : mAdapter.mItems) {
+            if (i != 0) {
+                numBooks++;
+            }
+        }
         int offset = numBooks % 7;
         Log.v("Cover", "Offset is: " + offset);
         int index;
         if (position - 1 < offset && position != 0) {
             index = position - 1;
-        } else if ((position - offset) % 8 != 0) {
+        } else if ((position - offset - 1) % 8 != 0) {
             Log.v("Cover", "Second leg");
-            index = position - (Math.floorDiv(position, 8)) - 1;
+            index = position - (Math.floorDiv(position - offset, 8)) - 2;
         } else {
             return;
         }
