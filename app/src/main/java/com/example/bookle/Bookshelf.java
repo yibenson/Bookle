@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
-    // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
     private final String DAY_ZERO = "2022-05-01";
     private final int DAYS_IN_WEEK = 7;
 
@@ -120,7 +119,6 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCoverClick(int position) {
-        Log.v("Cover", "Clicked on position: " + position);
         int numBooks = 1;
         for (int i : mAdapter.mItems) {
             if (i != 0) {
@@ -128,18 +126,14 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             }
         }
         int offset = numBooks % 7;
-        Log.v("Cover", "Offset is: " + offset);
         int index;
         if (position - 1 < offset && position != 0) {
             index = position - 1;
         } else if ((position - offset - 1) % 8 != 0) {
-            Log.v("Cover", "Second leg");
             index = position - (Math.floorDiv(position - offset, 8)) - 2;
         } else {
             return;
         }
-
-        Log.v("Cover", "Index is: " + index);
 
         if (index == 0) {
             boolean revealed = Utils.isRevealed(this);
