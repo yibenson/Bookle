@@ -62,7 +62,12 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
         mContext = context;
         mItems = new ArrayList<Integer>(numBookles);
+        ((ArrayList<Integer>) mItems).ensureCapacity(numBookles);
         for (int i = 0; i < numBookles; i++) {
+            mItems.add(i, 0);
+        }
+        Log.d("BOOKS ARRAY INITIALIZED", String.valueOf(mItems.size()));
+        for (int i = numBookles - 1; i >= 0; i--) {
             addItem(i);
         }
         this.onCoverClickListener = onCoverClickListener;
@@ -95,6 +100,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     public void addItem(int position) {
         final int id = mCurrentItemId++;
+        Log.d("ADDING BOOKS", String.valueOf(mItems.size()));
         mItems.add(position, id);
         notifyItemInserted(position);
     }

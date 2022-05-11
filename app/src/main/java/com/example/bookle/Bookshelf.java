@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookle.databinding.BookshelfBinding;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,34 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
 
         //Count is number of Bookles so far
         today = LocalDate.now();
+        int start = 0;
+        DayOfWeek dayofweek = today.getDayOfWeek();
+        switch (dayofweek) {
+            case SUNDAY: start = 6;
+                break;
+            case MONDAY: start = 5;
+                break;
+            case TUESDAY: start = 4;
+                break;
+            case WEDNESDAY: start = 3;
+                break;
+            case THURSDAY: start = 2;
+                break;
+            case FRIDAY: start = 1;
+                break;
+            case SATURDAY: start = 0;
+                break;
+        }
+        LocalDate thissaturday;
+        LocalDate thissunday;
+        if (start == 0) {
+            thissaturday = today;
+            thissunday = today.minusDays(6);
+        } else {
+            thissaturday = today.plusDays(start);
+            thissunday = today.minusDays(6 - start);
+        }
+
         LocalDate dayZero = LocalDate.parse(DAY_ZERO);
         int count = Period.between(dayZero, today).getDays() + 1;
 
@@ -57,11 +87,18 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
 
         //Add a section for each week with at least one Bookle
         String title;
-        for (int i = 0; i < numberOfSections; i++) {
-            title = String.format("Week %d", numberOfSections - i);
+        title = "This Week";
+        sections.add(new SectionedGridRecyclerViewAdapter
+                .Section(0, title));
+        for (int i = 1; i < numberOfSections; i++) {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM dd, uuuu");
+            LocalDate day1 = thissaturday.minusDays(i*DAYS_IN_WEEK);
+            LocalDate day2 = thissunday.minusDays(i*DAYS_IN_WEEK);
+            title = dateFormat.format(day2)+ " to " + dateFormat.format(day1);
             sections.add(new SectionedGridRecyclerViewAdapter
-                    .Section(i * DAYS_IN_WEEK, title));
+                    .Section(i * DAYS_IN_WEEK - start, title));
         }
+
 
         //Add your adapter to the sectionAdapter
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
