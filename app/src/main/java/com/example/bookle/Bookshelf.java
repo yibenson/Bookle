@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Bookshelf extends AppCompatActivity implements SimpleAdapter.SimpleViewHolder.OnCoverClickListener {
     // FIXME: Maybe add date to firebase instead of hardcode so we can change end of bookshelf?
-    private final String DAY_ZERO = "2022-05-02";
+    private final String DAY_ZERO = "2022-05-01";
     private final int DAYS_IN_WEEK = 7;
 
     BookshelfBinding binding;
@@ -120,25 +120,42 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCoverClick(int position) {
-        if (position % 8 != 0) {
-            int index = mAdapter.mItems.get(position - (Math.floorDiv(position, 8) + 1));
-            if (index == 0) {
-                boolean revealed = Utils.isRevealed(this);
-                if (!revealed ) {
-                    //If today's unrevealed Bookle is clicked, open the reader
-                    Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-                    String today = LocalDate.now().toString();
-                    readerIntent.putExtra("DAY", today);
-                    readerIntent.putExtra("SOURCE", "BOOKSHELF");
-                    startActivity(readerIntent);
-                    return;
-                }
+        Log.v("Cover", "Clicked on position: " + position);
+        int numBooks = mAdapter.mItems.size();
+        int offset = numBooks % 7;
+        Log.v("Cover", "Offset is: " + offset);
+        int index;
+        if (position - 1 < offset && position != 0) {
+            index = position - 1;
+        } else if ((position - offset) % 8 != 0) {
+            Log.v("Cover", "Second leg");
+            index = position - (Math.floorDiv(position, 8)) - 1;
+        } else {
+            return;
+        }
+
+        Log.v("Cover", "Index is: " + index);
+
+        if (index == 0) {
+            boolean revealed = Utils.isRevealed(this);
+            if (!revealed ) {
+                //If today's unrevealed Bookle is clicked, open the reader
+                Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
+                String today = LocalDate.now().toString();
+                readerIntent.putExtra("DAY", today);
+                readerIntent.putExtra("SOURCE", "BOOKSHELF");
+                startActivity(readerIntent);
+                return;
             }
+        }
+
+
             //Otherwise, open a book dialog for this Bookle
             Intent intent = new Intent(getApplicationContext(), BookDialog.class);
             intent.putExtra("BOOK", index);
             intent.putExtra("SOURCE", "BOOKSHELF");
             startActivity(intent);
-        }
+
+
     }
 }

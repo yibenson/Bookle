@@ -80,7 +80,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
-        // holder.title.setText(mItems.get(position).toString());
         holder.number = mItems.get(position);
 
         boolean revealed = Utils.isRevealed(mContext);
