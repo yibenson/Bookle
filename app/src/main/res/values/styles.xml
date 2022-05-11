@@ -10,6 +10,7 @@
 
     <style name="helpQuestion" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">24dp</item>
     </style>
 

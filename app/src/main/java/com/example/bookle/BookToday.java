@@ -27,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 
 public class BookToday extends AppCompatActivity {
     NumberFormat f = new DecimalFormat("00");
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     ActivityBookTodayBinding binding;
 
     private ClipboardManager myClipboard;
@@ -102,7 +101,7 @@ public class BookToday extends AppCompatActivity {
 
     public void close(View view) {
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        String today = LocalDate.now().format(dateTimeFormatter);
+        String today = LocalDate.now().format(Utils.dateFormatInternal);
         readerIntent.putExtra("DAY", today);
         startActivity(readerIntent);
         finish();

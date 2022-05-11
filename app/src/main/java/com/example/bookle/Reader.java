@@ -1,19 +1,13 @@
 package com.example.bookle;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-//import android.icu.text.SimpleDateFormat;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-//import android.icu.util.Calendar;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
@@ -22,23 +16,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.bookle.databinding.EreaderBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -53,10 +42,11 @@ public class Reader extends AppCompatActivity {
     EreaderBinding ereaderBinding;
     SharedPreferences sharedPref;
 
+    static final int MAX_GUESSES = 6;
     static ArrayList<String> guesses = new ArrayList<>();
     final String[] answer = new String[1];
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    int[] guess_views = new int[]{R.id.guess1, R.id.guess2,R.id.guess3,R.id.guess4,R.id.guess5,R.id.guess6};
+    int[] guess_views = new int[]{R.id.guess1, R.id.guess2,R.id.guess3,
+            R.id.guess4,R.id.guess5,R.id.guess6};
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,19 +130,17 @@ public class Reader extends AppCompatActivity {
     }
 
     private void close() {
-        if (getIntent().hasExtra("SOURCE")) {
-            finish();
-        } else {
+        if (!getIntent().hasExtra("SOURCE")) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish();
         }
-
+        finish();
     }
 
     public void reveal(View view) {
         String today = LocalDate.now().toString();
         sharedPref.edit().putString(getString(R.string.reveal), today).apply();
+
         startActivity(new Intent(getApplicationContext(), BookToday.class));
         finish();
     }
@@ -163,7 +151,7 @@ public class Reader extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = inflater.inflate(R.layout.guess_dialog, null);
         builder.setView(v)
-                .setTitle("Input your guesses for the title in the spaces below\n")
+                .setTitle(getString(R.string.guess_prompt))
                 .setPositiveButton(R.string.reveal, (dialogInterface, i) -> reveal(null))
                 .setNeutralButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .setNegativeButton(R.string.guess, null);
@@ -178,8 +166,9 @@ public class Reader extends AppCompatActivity {
     }
 
     public void guess(View view) {
-        sharedPref.edit().putString(getString(R.string.last_guess_date), LocalDate.now().format(dateTimeFormatter)).apply();
-        if (guesses.size() >= 6) { return; }
+        sharedPref.edit().putString(getString(R.string.last_guess_date), LocalDate.now()
+                .format(Utils.dateFormatInternal)).apply();
+        if (guesses.size() >= MAX_GUESSES) { return; }
 
         TextInputLayout guess_view = (TextInputLayout) view.findViewById(guess_views[guesses.size()]);
         String guess = guess_view.getEditText().getText().toString();
@@ -218,7 +207,7 @@ public class Reader extends AppCompatActivity {
 
     private void disableEditTexts(View root) {
         EditText e;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < MAX_GUESSES; i++) {
             e = ((TextInputLayout) root.findViewById(guess_views[i])).getEditText();
             if (i == guesses.size()) {
                 e.setFocusable(true);
@@ -237,7 +226,7 @@ public class Reader extends AppCompatActivity {
 
     private void disableAllEditTexts(View root) {
         EditText e;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < MAX_GUESSES; i++) {
             e = ((TextInputLayout) root.findViewById(guess_views[i])).getEditText();
             if (i < guesses.size()) {
                 e.setText(guesses.get(i));
@@ -250,8 +239,8 @@ public class Reader extends AppCompatActivity {
 
     public void saveArrayList(ArrayList<String> list, String key){
         Gson gson = new Gson();
-        String json = gson.toJson(list);
-        sharedPref.edit().putString(getString(R.string.guess), json).apply();
+        String jsonList = gson.toJson(list);
+        sharedPref.edit().putString(key, jsonList).apply();
     }
 
     public ArrayList<String> getArrayList(String key){
@@ -262,7 +251,8 @@ public class Reader extends AppCompatActivity {
     }
 
     private boolean pastDate() {
-        return getIntent().getStringExtra("DAY").compareTo(LocalDate.now().format(dateTimeFormatter)) != 0;
+        return getIntent().getStringExtra("DAY").compareTo(LocalDate.now()
+                .format(Utils.dateFormatInternal)) != 0;
     }
 
 

@@ -32,7 +32,7 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="help_q4">&#128218; Want to see books from previous days?</string>
     <string name="help_a4">You can go to the bookshelf for a week-by-week history of previous titles!</string>
     <!-- End help page -->
-    
+
     <string name="today">Today\'s Bookle was…</string>
     <string name="title0">Pride and Prejudice</string>
     <string name="author0">by Jane Austen</string>
@@ -44,6 +44,9 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="guess">Guess</string>
     <string name="last_guess_date">Last Guess Date</string>
     <string name="correct_guess">Correct Guess</string>
+    <string name="guess_prompt">Input your guesses for the title in the spaces below\n</string>
     <string name="cancel">Cancel</string>
+
+    <string name="bookshelf_section">"%1$s to %2$s"</string>
 
 </resources>

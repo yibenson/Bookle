@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private FirebaseAuth mAuth;
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setCover();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        String today = LocalDate.now().format(dateTimeFormatter);
+        String today = LocalDate.now().format(Utils.dateFormatInternal);
         readerIntent.putExtra("DAY", today);
         binding.cover.setOnClickListener(view -> startActivity(readerIntent));
 
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCover() {
-        String today = LocalDate.now().format(dateTimeFormatter);
+        String today = LocalDate.now().format(Utils.dateFormatInternal);
         boolean revealed = Utils.isRevealed(this);
         if (!revealed) {
             binding.cover.setBackground(getDrawable(R.drawable.mysterybook));

@@ -32,7 +32,6 @@ public class BookDialog extends AppCompatActivity {
     private String title;
     private String author;
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate localDate;
 
     @Override
@@ -46,12 +45,12 @@ public class BookDialog extends AppCompatActivity {
 
         getDatabaseValues();
 
-        String text = "The Bookle on " + localDate.format(dateTimeFormatter) + " was...";
+        String text = "The Bookle on " + localDate.format(Utils.dateFormatToUser) + " was...";
         bookDialogBinding.bookleMsg.setText(text);
         bookDialogBinding.bookleMsg.bringToFront();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        readerIntent.putExtra("DAY", localDate.format(dateTimeFormatter));
+        readerIntent.putExtra("DAY", localDate.format(Utils.dateFormatInternal));
         readerIntent.putExtra("SOURCE", "BOOKSHELF");
         bookDialogBinding.book1Cover.setOnClickListener(view -> startActivity(readerIntent));
 
@@ -63,30 +62,27 @@ public class BookDialog extends AppCompatActivity {
     }
 
     private void getDatabaseValues() {
-        String day = localDate.format(dateTimeFormatter);
+        String day = localDate.format(Utils.dateFormatInternal);
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(day);
 
-        Utils.databaseMethod actionTitle = (t) -> {
-            title = t;
+        Utils.doFromDatabase(databaseToday, "title", ti -> {
+            title = ti;
             bookDialogBinding.book1Title.setText(title);
-        };
-        Utils.doFromDatabase(databaseToday, "title", actionTitle);
+        });
 
-        Utils.databaseMethod actionAuthor = (a) -> {
-            author = a;
+        Utils.doFromDatabase(databaseToday, "author", au -> {
+            author = au;
             bookDialogBinding.book1Author.setText(getString(R.string.author, author));
-        };
-        Utils.doFromDatabase(databaseToday, "author", actionAuthor);
+        });
 
-        Utils.databaseMethod actionCover = (imageUri) ->
-                Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
-        Utils.doFromDatabase(databaseToday, "cover", actionCover);
+        Utils.doFromDatabase(databaseToday, "cover", imageUri -> {
+            Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
+        });
 
-        Utils.databaseMethod actionBuy = (buy) ->
-                amazonLink = buy;
-        Utils.doFromDatabase(databaseToday, "buy", actionBuy);
-
+        Utils.doFromDatabase(databaseToday, "buy", buy -> {
+            amazonLink = buy;
+        });
     }
 
     private void open_link() {
@@ -97,7 +93,7 @@ public class BookDialog extends AppCompatActivity {
     private void clipboard() {
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
-        String text = getString(R.string.share_prior, localDate.format(dateTimeFormatter),
+        String text = getString(R.string.share_prior, localDate.format(Utils.dateFormatToUser),
                 title, author);
 
         myClip = ClipData.newPlainText("text", text);
