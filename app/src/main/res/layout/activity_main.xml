@@ -10,6 +10,7 @@
         android:id="@+id/cover"
         android:layout_width="263dp"
         android:layout_height="381dp"
+        android:contentDescription="@string/book_cover_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baskervville"
         android:text="@string/app_name"
-        android:textSize="40sp"
+        android:textSize="46sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/help_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +39,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_baseline_help_outline_24"
+        android:contentDescription="@string/help_button_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -49,6 +51,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/ic_bookshelf_icon"
+        android:contentDescription="@string/bookshelf_button_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Bookle</string>
-    <string name="lorem_text">loading today\'s Bookle... \n \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat vulputate risus, at imperdiet orci tincidunt vitae. Morbi auctor ex magna, et consectetur sapien pretium ut. Suspendisse fermentum eget orci nec fermentum. Nullam consectetur, ante nec sagittis finibus, mauris dolor congue libero, in mollis turpis magna vel neque. Quisque posuere ex odio, vitae ornare metus tincidunt vitae. Etiam iaculis scelerisque sem sit amet accumsan. Phasellus at venenatis lorem. Nunc tincidunt metus sit amet felis vestibulum, et sagittis justo porttitor. Cras non ultrices turpis.
+    <string name="lorem_text">loading today\'s Bookle… \n \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat vulputate risus, at imperdiet orci tincidunt vitae. Morbi auctor ex magna, et consectetur sapien pretium ut. Suspendisse fermentum eget orci nec fermentum. Nullam consectetur, ante nec sagittis finibus, mauris dolor congue libero, in mollis turpis magna vel neque. Quisque posuere ex odio, vitae ornare metus tincidunt vitae. Etiam iaculis scelerisque sem sit amet accumsan. Phasellus at venenatis lorem. Nunc tincidunt metus sit amet felis vestibulum, et sagittis justo porttitor. Cras non ultrices turpis.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel metus massa. Aliquam nulla leo, mollis id rhoncus id, dapibus eget nunc. Vestibulum condimentum, velit et volutpat interdum, arcu nunc eleifend sapien, at fermentum eros nisl a nunc. Suspendisse fringilla molestie condimentum. Mauris vestibulum nibh orci, egestas blandit est pretium eu. Maecenas accumsan, orci a aliquet mollis, tortor leo sodales dolor, ac viverra ex nulla non lacus. In viverra nec ante sed dapibus. Sed fermentum lobortis fringilla. Etiam nec justo id velit dignissim egestas interdum vitae metus. Vivamus suscipit, eros a faucibus interdum, velit sem pulvinar orci, quis sollicitudin felis sapien nec justo. Cras quis finibus urna.
 
@@ -15,7 +15,9 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="reader">Reader</string>
     <string name="reveal">Reveal</string>
     <string name="A">A</string>
-    <string name="darkmodetoggle">Dark mode toggle</string>
+
+    <string name="darkmode_text">Dark Mode</string>
+    <string name="lightmode_text">Light Mode</string>
 
     <!-- Help page -->
     <string name="help_title">What is Bookle?</string>
@@ -34,8 +36,8 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <!-- End help page -->
 
     <string name="today">Today\'s Bookle was…</string>
-    <string name="title0">Pride and Prejudice</string>
-    <string name="author0">by Jane Austen</string>
+    <string name="title0">Title loading…</string>
+    <string name="author0">Author loading…</string>
     <string name="timer">Next Bookle in…</string>
 
     <string name="share_book">Today\'s Bookle opened with the sentence:\n\n\"%1$s\"\nCan you guess the book? Download the app here: https://github.com/yibenson/Bookle</string>

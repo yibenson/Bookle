@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main Activity -->
+    <string name="bookshelf_button_desc">Open bookshelf page</string>
+    <string name="help_button_desc">Open help page</string>
+
+    <!-- Help Activity-->
+    <string name="help_close_desc">Close help page</string>
+
+    <!-- Reader/Settings -->
+    <string name="light_mode_desc">Light mode</string>
+    <string name="dark_mode_desc">Dark mode</string>
+    <string name="text_size_desc">Adjust text size</string>
+    <string name="text_options_desc">Adjust light/dark mode and text size</string>
+
+    <!-- Book Dialog/Today's Book -->
+    <string name="share_button_desc">Share</string>
+
+    <!-- Bookshelf -->
+
+    <!-- Misc -->
+    <string name="back_button_desc">Back to previous page</string>
+    <string name="book_cover_desc">An image of this book\'s cover</string>
+</resources>

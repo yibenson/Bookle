@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,8 +13,8 @@
         <Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight">
 
             <TextView
                 android:id="@+id/app_name"
@@ -22,17 +23,19 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/baskervville"
                 android:text="@string/app_name"
-                android:textSize="32sp"
+                android:textSize="38sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/back_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:padding="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="start"
-                android:background="@drawable/ic_baseline_arrow_back_24" />
+                android:layout_marginStart="10dp"
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                android:contentDescription="@string/back_button_desc"
+                android:padding="5dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </Toolbar>
 
@@ -52,7 +55,7 @@
             android:autoSizeTextType="uniform"
             android:gravity="center"
             android:maxLines="1"
-            android:text="Yesterday's Bookle was..."
+            android:text="@string/today"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +78,7 @@
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
             android:maxLines="1"
-            android:text="Crying in H Mart"
+            android:text="@string/title0"
             android:textAppearance="@style/title"
             app:layout_constraintBottom_toTopOf="@+id/book1_cover"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
@@ -88,6 +91,7 @@
             android:id="@+id/book1_cover"
             android:layout_width="206dp"
             android:layout_height="302dp"
+            android:contentDescription="@string/book_cover_desc"
             app:layout_constraintBottom_toBottomOf="@+id/cover_background"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
             app:layout_constraintStart_toStartOf="@+id/cover_background"
@@ -101,7 +105,7 @@
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
             android:maxLines="1"
-            android:text="by Michelle Zauner"
+            android:text="@string/author0"
             android:textAppearance="@style/author"
             app:layout_constraintBottom_toBottomOf="@+id/cover_background"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
@@ -121,11 +125,12 @@
             app:layout_constraintTop_toBottomOf="@+id/cover_background"
             app:layout_constraintVertical_bias="0.068" />
 
-        <View
+        <Button
             android:id="@+id/share_button"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:background="@drawable/ic_baseline_share_24"
+            android:contentDescription="@string/share_button_desc"
             app:layout_constraintBottom_toBottomOf="@+id/amazon_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.148"
@@ -134,8 +139,6 @@
             app:layout_constraintVertical_bias="0.127" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

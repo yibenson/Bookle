@@ -1,31 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/darkRelativeLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/download"
         android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
         android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/light_mode_desc"
+            app:srcCompat="@drawable/ic_light_mode_48px" />
+
+        <TextView
+            android:id="@+id/light_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toStartOf="@+id/darkmode_switch"
+            android:layout_toEndOf="@id/imageView"
+            android:text="@string/lightmode_text"
+            android:textSize="18sp" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/darkmode_switch"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Dark Mode Toggle" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:layout_toStartOf="@id/dark_mode"
+            android:layout_toEndOf="@+id/darkmode_switch"
+            android:contentDescription="@string/dark_mode_desc"
+            app:srcCompat="@drawable/ic_dark_mode_24" />
+
+        <TextView
+            android:id="@+id/dark_mode"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:text="@string/darkmode_text"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/shareLinearLayout"
+        android:id="@+id/sizeRelativeLayout"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dp">
 
@@ -35,16 +79,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textSize="20sp"
             android:text="@string/A"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <com.google.android.material.slider.Slider
             android:id="@+id/discreteSlider"
             android:layout_width="600dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/smallA"
             android:layout_toStartOf="@id/bigA"
+            android:layout_toEndOf="@id/smallA"
+            android:contentDescription="@string/text_size_desc"
             android:stepSize="20"
             android:value="20.0"
             android:valueFrom="0.0"
@@ -54,11 +99,11 @@
             android:id="@+id/bigA"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:text="@string/A"
-            android:textSize="32sp"
-            android:textAlignment="center"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"/>
+            android:text="@string/A"
+            android:textAlignment="center"
+            android:textSize="32sp" />
 
     </RelativeLayout>
 

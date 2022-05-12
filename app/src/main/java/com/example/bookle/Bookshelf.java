@@ -70,8 +70,8 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         sections.add(new SectionedGridRecyclerViewAdapter
                 .Section(0, title));
         for (int i = 1; i < numberOfSections; i++) {
-            LocalDate day1 = thisSaturday.minusDays(i*DAYS_IN_WEEK);
-            LocalDate day2 = thisSunday.minusDays(i*DAYS_IN_WEEK);
+            LocalDate day1 = thisSaturday.minusDays(i * DAYS_IN_WEEK);
+            LocalDate day2 = thisSunday.minusDays(i * DAYS_IN_WEEK);
             title = String.format(getString(R.string.bookshelf_section),
                     day2.format(Utils.dateFormatToUser), day1.format(Utils.dateFormatToUser));
             sections.add(new SectionedGridRecyclerViewAdapter
