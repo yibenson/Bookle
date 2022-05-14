@@ -25,8 +25,6 @@ import java.time.format.DateTimeFormatter;
 public class BookDialog extends AppCompatActivity {
 
     BookDialogBinding bookDialogBinding;
-    private ClipboardManager myClipboard;
-    private ClipData myClip;
 
     private String amazonLink;
     private String title;
@@ -40,19 +38,17 @@ public class BookDialog extends AppCompatActivity {
         bookDialogBinding = BookDialogBinding.inflate(getLayoutInflater());
         setContentView(bookDialogBinding.getRoot());
 
-        int index = getIntent().getIntExtra("BOOK", 0);
+        int index = getIntent().getIntExtra(getString(R.string.DAY), 0);
         localDate = LocalDate.now().minusDays(index);
 
         getDatabaseValues();
 
-        String text = "The Bookle on " + localDate.format(Utils.dateFormatToUser) + " was...";
-        bookDialogBinding.bookleMsg.setText(text);
+        bookDialogBinding.bookleMsg.setText(getString(R.string.bookle_was, localDate.format(Utils.dateFormatToUser)));
         bookDialogBinding.bookleMsg.bringToFront();
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
-        readerIntent.putExtra("DAY", localDate.format(Utils.dateFormatInternal));
-        readerIntent.putExtra("SOURCE", "BOOKSHELF");
-        bookDialogBinding.book1Cover.setOnClickListener(view -> startActivity(readerIntent));
+        readerIntent.putExtra(getString(R.string.DAY), localDate.format(Utils.dateFormatInternal));
+        bookDialogBinding.bookDialogCover.setOnClickListener(view -> startActivity(readerIntent));
 
         bookDialogBinding.amazonButton.setOnClickListener(view -> open_link());
         bookDialogBinding.backButton.setOnClickListener(view -> finish());
@@ -64,20 +60,20 @@ public class BookDialog extends AppCompatActivity {
     private void getDatabaseValues() {
         String day = localDate.format(Utils.dateFormatInternal);
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
-                .child("Books").child(day);
+                .child(getString(R.string.BOOKS)).child(day);
 
         Utils.doFromDatabase(databaseToday, "title", ti -> {
             title = ti;
-            bookDialogBinding.book1Title.setText(title);
+            bookDialogBinding.bookDialogTitle.setText(title);
         });
 
         Utils.doFromDatabase(databaseToday, "author", au -> {
             author = au;
-            bookDialogBinding.book1Author.setText(getString(R.string.author, author));
+            bookDialogBinding.bookDialogAuthor.setText(getString(R.string.written_by, author));
         });
 
         Utils.doFromDatabase(databaseToday, "cover", imageUri -> {
-            Picasso.get().load(imageUri).into(bookDialogBinding.book1Cover);
+            Picasso.get().load(imageUri).into(bookDialogBinding.bookDialogCover);
         });
 
         Utils.doFromDatabase(databaseToday, "buy", buy -> {
@@ -91,14 +87,14 @@ public class BookDialog extends AppCompatActivity {
     }
 
     private void clipboard() {
-        myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
         String text = getString(R.string.share_prior, localDate.format(Utils.dateFormatToUser),
                 title, author);
 
-        myClip = ClipData.newPlainText("text", text);
+        ClipData myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);
-        Toast.makeText(this, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.copied), Toast.LENGTH_SHORT).show();
     }
 
 }
