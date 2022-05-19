@@ -8,15 +8,15 @@
 
     <ImageView
         android:id="@+id/cover"
-        android:layout_width="263dp"
-        android:layout_height="381dp"
+        android:layout_width="275dp"
+        android:layout_height="420dp"
         android:contentDescription="@string/book_cover_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/textView"
@@ -37,7 +37,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="22dp"
         android:background="@drawable/ic_baseline_help_outline_24"
         android:contentDescription="@string/help_button_desc"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:id="@+id/bookshelf_icon"
         android:layout_width="32dp"
         android:layout_height="48dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/ic_bookshelf_icon"
         android:contentDescription="@string/bookshelf_button_desc"

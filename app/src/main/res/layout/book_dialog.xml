@@ -129,7 +129,7 @@
             android:id="@+id/share_button"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:background="@drawable/ic_baseline_share_24"
+            android:background="@drawable/ic_outline_share_24"
             android:contentDescription="@string/share_button_desc"
             app:layout_constraintBottom_toBottomOf="@+id/amazon_button"
             app:layout_constraintEnd_toEndOf="parent"
