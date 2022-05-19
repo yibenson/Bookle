@@ -3,6 +3,7 @@ package com.example.bookle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,13 +43,21 @@ public class MainActivity extends AppCompatActivity {
 
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
         String today = LocalDate.now().format(Utils.dateFormatInternal);
-        readerIntent.putExtra("DAY", today);
+        readerIntent.putExtra(getString(R.string.DAY), today);
         binding.cover.setOnClickListener(view -> startActivity(readerIntent));
 
         binding.helpIcon.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Help.class)));
 
         binding.bookshelfIcon.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Bookshelf.class)));
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setCover();
+    }
+
 
     private void authenticate() {
         mAuth = FirebaseAuth.getInstance();
@@ -72,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         String today = LocalDate.now().format(Utils.dateFormatInternal);
         boolean revealed = Utils.isRevealed(this);
         if (!revealed) {
-            binding.cover.setBackground(getDrawable(R.drawable.mysterybook));
+            binding.cover.setBackground(AppCompatResources.getDrawable(this, R.drawable.mysterybook));
         } else {
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                     .child("Books").child(today);

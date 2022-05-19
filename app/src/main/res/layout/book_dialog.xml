@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/baskervville"
+                android:fontFamily="@font/baskerville"
                 android:text="@string/app_name"
                 android:textSize="38sp"
                 android:textStyle="bold" />
@@ -72,15 +72,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/book1_title"
+            android:id="@+id/book_dialog_title"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
             android:maxLines="1"
-            android:text="@string/title0"
+            android:text="@string/title_loading"
             android:textAppearance="@style/title"
-            app:layout_constraintBottom_toTopOf="@+id/book1_cover"
+            app:layout_constraintBottom_toTopOf="@+id/book_dialog_cover"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
             app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="@+id/cover_background"
@@ -88,7 +88,7 @@
             app:layout_constraintVertical_bias="0.68" />
 
         <ImageView
-            android:id="@+id/book1_cover"
+            android:id="@+id/book_dialog_cover"
             android:layout_width="206dp"
             android:layout_height="302dp"
             android:contentDescription="@string/book_cover_desc"
@@ -99,18 +99,18 @@
             app:layout_constraintVertical_bias="0.503" />
 
         <TextView
-            android:id="@+id/book1_author"
+            android:id="@+id/book_dialog_author"
             android:layout_width="252dp"
             android:layout_height="43dp"
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
             android:maxLines="1"
-            android:text="@string/author0"
+            android:text="@string/author_loading"
             android:textAppearance="@style/author"
             app:layout_constraintBottom_toBottomOf="@+id/cover_background"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
             app:layout_constraintStart_toStartOf="@+id/cover_background"
-            app:layout_constraintTop_toBottomOf="@+id/book1_cover"
+            app:layout_constraintTop_toBottomOf="@+id/book_dialog_cover"
             app:layout_constraintVertical_bias="0.394" />
 
         <View

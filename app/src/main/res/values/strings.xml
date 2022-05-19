@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Bookle</string>
+    <string name="darkmode">darkmode</string>
+
+    <!-- Reader page -->
+    <string name="textsize">textsize</string>
+    <string name="message">message</string>
     <string name="lorem_text">loading today\'s Bookle… \n \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat vulputate risus, at imperdiet orci tincidunt vitae. Morbi auctor ex magna, et consectetur sapien pretium ut. Suspendisse fermentum eget orci nec fermentum. Nullam consectetur, ante nec sagittis finibus, mauris dolor congue libero, in mollis turpis magna vel neque. Quisque posuere ex odio, vitae ornare metus tincidunt vitae. Etiam iaculis scelerisque sem sit amet accumsan. Phasellus at venenatis lorem. Nunc tincidunt metus sit amet felis vestibulum, et sagittis justo porttitor. Cras non ultrices turpis.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel metus massa. Aliquam nulla leo, mollis id rhoncus id, dapibus eget nunc. Vestibulum condimentum, velit et volutpat interdum, arcu nunc eleifend sapien, at fermentum eros nisl a nunc. Suspendisse fringilla molestie condimentum. Mauris vestibulum nibh orci, egestas blandit est pretium eu. Maecenas accumsan, orci a aliquet mollis, tortor leo sodales dolor, ac viverra ex nulla non lacus. In viverra nec ante sed dapibus. Sed fermentum lobortis fringilla. Etiam nec justo id velit dignissim egestas interdum vitae metus. Vivamus suscipit, eros a faucibus interdum, velit sem pulvinar orci, quis sollicitudin felis sapien nec justo. Cras quis finibus urna.
@@ -9,20 +14,18 @@ Vestibulum iaculis libero magna, et posuere tellus maximus a. Duis sed tempor le
 Mauris diam mi, cursus et elit ut, ornare suscipit risus. Mauris posuere lacus nibh, non hendrerit velit vestibulum id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec et ornare leo. Nulla facilisi. Phasellus tincidunt nibh sit amet facilisis aliquet. Integer nec eros maximus, malesuada libero id, venenatis arcu. Proin aliquam elit eu mauris vehicula, non malesuada tortor tempor. Mauris eu augue pharetra, ornare nisi fermentum, cursus purus. Etiam ultrices convallis sapien, sit amet finibus quam. Curabitur in viverra sem. Praesent id mollis tortor, volutpat elementum nisi. Vivamus at sapien quis sapien tempor porttitor. Morbi scelerisque luctus nulla, ut luctus ligula vehicula at. In nec mollis diam, et vestibulum felis.
 
 Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis purus ac malesuada. Maecenas ipsum turpis, bibendum imperdiet vehicula quis, fringilla id nulla. Nulla pellentesque, arcu at mattis consequat, velit lacus laoreet quam, congue pellentesque turpis dui quis orci. Suspendisse gravida orci ultricies lacus lobortis, at mollis nunc mollis. Aenean non mollis lectus. Ut iaculis ornare sem, non iaculis lectus lacinia at. Maecenas fermentum lorem quam. Vivamus erat risus, ornare quis molestie at, elementum ac quam. Vestibulum non augue quis nulla rhoncus tristique. Duis molestie dignissim ligula, id pulvinar justo pretium sed. Curabitur mollis, eros id suscipit feugiat, lacus elit consectetur risus, vitae vehicula elit urna in odio.</string>
-    <string name="darkmode">darkmode</string>
-    <string name="textsize">textsize</string>
-    <string name="message">message</string>
     <string name="reader">Reader</string>
     <string name="reveal">Reveal</string>
     <string name="A">A</string>
 
     <string name="darkmode_text">Dark Mode</string>
     <string name="lightmode_text">Light Mode</string>
+    <!-- End reader page -->
 
     <!-- Help page -->
     <string name="help_title">What is Bookle?</string>
 
-    <string name="help_q1">&#128214; Don’t judge a book by its cover...</string>
+    <string name="help_q1">&#128214; Don’t judge a book by its cover…</string>
     <string name="help_a1">Read the first chapter of a different unknown book everyday.</string>
 
     <string name="help_q2">&#128213; Want to know more?</string>
@@ -35,20 +38,34 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <string name="help_a4">You can go to the bookshelf for a week-by-week history of previous titles!</string>
     <!-- End help page -->
 
+    <!-- Book dialog -->
     <string name="today">Today\'s Bookle was…</string>
-    <string name="title0">Title loading…</string>
-    <string name="author0">Author loading…</string>
+    <string name="title_loading">Title loading…</string>
+    <string name="author_loading">Author loading…</string>
+    <string name="timer_loading">Timer loading…</string>
     <string name="timer">Next Bookle in…</string>
-
-    <string name="share_book">Today\'s Bookle opened with the sentence:\n\n\"%1$s\"\nCan you guess the book? Download the app here: https://github.com/yibenson/Bookle</string>
+    <string name="written_by">by %1$s</string>
+    <string name="bookle_was">"The Bookle on %1$s was…</string>
+    <string name="today_book_share">Today\'s Bookle opened with the sentence:\n\n\"%1$s\"\nCan you guess the book? Download the app here: https://github.com/yibenson/Bookle</string>
     <string name="share_prior">I read the Bookle on %1$s: %2$s, by the author %3$s.\nDownload the app here: https://github.com/yibenson/Bookle</string>
-    <string name="author">by %1$s</string>
+    <string name="copied">Copied to clipboard!</string>
+    <!-- End book dialog -->
+
+
+    <!-- Guess dialog -->
     <string name="guess">Guess</string>
     <string name="last_guess_date">Last Guess Date</string>
     <string name="correct_guess">Correct Guess</string>
     <string name="guess_prompt">Input your guesses for the title in the spaces below\n</string>
     <string name="cancel">Cancel</string>
+    <!-- End guess dialog -->
 
     <string name="bookshelf_section">"%1$s to %2$s"</string>
+    <string name="week_loading">Week loading</string>
+
+    <!-- Intent extras names -->
+    <string name="DAY">DAY</string>
+    <string name="BOOKS">Books</string>
+    <!-- End intent extras names -->
 
 </resources>

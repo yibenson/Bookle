@@ -53,8 +53,8 @@ public class Reader extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ereaderBinding = EreaderBinding.inflate(getLayoutInflater());
         setContentView(ereaderBinding.getRoot());
-        ereaderBinding.backButton.setOnClickListener(view -> close());
-        ereaderBinding.appName.setOnClickListener(view -> close());
+        ereaderBinding.backButton.setOnClickListener(view -> finish());
+        ereaderBinding.appName.setOnClickListener(view -> finish());
 
         ereaderBinding.optionsBttn.setOnClickListener(v -> showBottomSheetDialog());
         sharedPref = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
@@ -129,14 +129,6 @@ public class Reader extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
-    private void close() {
-        if (!getIntent().hasExtra("SOURCE")) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        finish();
-    }
-
     public void reveal(View view) {
         String today = LocalDate.now().toString();
         sharedPref.edit().putString(getString(R.string.reveal), today).apply();
@@ -146,7 +138,6 @@ public class Reader extends AppCompatActivity {
     }
 
     private void show_guess_dialog() {
-        Log.e("Reader", guesses.toString());
         LayoutInflater inflater = this.getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = inflater.inflate(R.layout.guess_dialog, null);
@@ -157,7 +148,7 @@ public class Reader extends AppCompatActivity {
                 .setNegativeButton(R.string.guess, null);
         AlertDialog alert = builder.create();
         alert.setOnShowListener(dialogInterface -> {
-            Button button = ((AlertDialog) alert).getButton(AlertDialog.BUTTON_NEGATIVE);
+            Button button = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
             button.setOnClickListener(view -> { guess(v); });
         });
 
@@ -170,7 +161,7 @@ public class Reader extends AppCompatActivity {
                 .format(Utils.dateFormatInternal)).apply();
         if (guesses.size() >= MAX_GUESSES) { return; }
 
-        TextInputLayout guess_view = (TextInputLayout) view.findViewById(guess_views[guesses.size()]);
+        TextInputLayout guess_view = view.findViewById(guess_views[guesses.size()]);
         String guess = guess_view.getEditText().getText().toString();
         guesses.add(guess);
         if (!checkGuess(guess)) {
@@ -209,6 +200,7 @@ public class Reader extends AppCompatActivity {
         EditText e;
         for (int i = 0; i < MAX_GUESSES; i++) {
             e = ((TextInputLayout) root.findViewById(guess_views[i])).getEditText();
+            assert e != null;
             if (i == guesses.size()) {
                 e.setFocusable(true);
                 e.setFocusableInTouchMode(true);
@@ -228,6 +220,7 @@ public class Reader extends AppCompatActivity {
         EditText e;
         for (int i = 0; i < MAX_GUESSES; i++) {
             e = ((TextInputLayout) root.findViewById(guess_views[i])).getEditText();
+            assert e != null;
             if (i < guesses.size()) {
                 e.setText(guesses.get(i));
             }
@@ -254,10 +247,5 @@ public class Reader extends AppCompatActivity {
         return getIntent().getStringExtra("DAY").compareTo(LocalDate.now()
                 .format(Utils.dateFormatInternal)) != 0;
     }
-
-
-
-
-
 
 }

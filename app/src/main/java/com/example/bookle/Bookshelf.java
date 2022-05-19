@@ -106,7 +106,6 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
             }
         }
 
-        // FIXME: Index is wrong at May 1st (end of 2nd section)
         int offset = numBooks % 7;
         int index;
         if (position - 1 < offset && position != 0) {
@@ -119,12 +118,11 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
 
         if (index == 0) {
             boolean revealed = Utils.isRevealed(this);
-            if (!revealed ) {
+            if (!revealed) {
                 //If today's unrevealed Bookle is clicked, open the reader
                 Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
                 String today = LocalDate.now().toString();
-                readerIntent.putExtra("DAY", today);
-                readerIntent.putExtra("SOURCE", "BOOKSHELF");
+                readerIntent.putExtra(getString(R.string.DAY), today);
                 startActivity(readerIntent);
                 return;
             }
@@ -133,7 +131,6 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         //Otherwise, open a book dialog for this Bookle
         Intent intent = new Intent(getApplicationContext(), BookDialog.class);
         intent.putExtra("BOOK", index);
-        intent.putExtra("SOURCE", "BOOKSHELF");
         startActivity(intent);
     }
 }

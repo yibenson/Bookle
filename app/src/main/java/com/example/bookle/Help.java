@@ -17,7 +17,7 @@ public class Help extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        helpBinding = helpBinding.inflate(getLayoutInflater());
+        helpBinding = ActivityHelpBinding.inflate(getLayoutInflater());
         setContentView(helpBinding.getRoot());
         helpBinding.helpClose.setOnClickListener(view -> finish());
 

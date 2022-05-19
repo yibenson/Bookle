@@ -40,7 +40,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
             imageView = (ImageView) view.findViewById(R.id.image);
             this.onCoverClickListener = onCoverClickListener;
             imageView.setOnClickListener(this);
-            // title = (TextView) view.findViewById(R.id.item_text);
         }
 
         @Override
@@ -61,12 +60,12 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         int numBookles = Period.between(firstDay, today).getDays() + 1;
 
         mContext = context;
-        mItems = new ArrayList<Integer>(numBookles);
+        mItems = new ArrayList<>(numBookles);
         ((ArrayList<Integer>) mItems).ensureCapacity(numBookles);
         for (int i = 0; i < numBookles; i++) {
             mItems.add(i, 0);
         }
-        Log.d("BOOKS ARRAY INITIALIZED", String.valueOf(mItems.size()));
+
         for (int i = numBookles - 1; i >= 0; i--) {
             addItem(i);
         }
@@ -88,7 +87,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         } else {
             String day = LocalDate.now().minusDays(position).toString();
             DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
-                    .child("Books").child(day);
+                    .child(mContext.getString(R.string.BOOKS)).child(day);
 
             Utils.databaseMethod actionCover = (imageUri) ->
                     Picasso.get().load(imageUri).into(holder.imageView);
@@ -99,7 +98,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     public void addItem(int position) {
         final int id = mCurrentItemId++;
-        Log.d("ADDING BOOKS", String.valueOf(mItems.size()));
         mItems.add(position, id);
         notifyItemInserted(position);
     }

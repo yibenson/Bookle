@@ -29,13 +29,9 @@ public class BookToday extends AppCompatActivity {
     NumberFormat f = new DecimalFormat("00");
     ActivityBookTodayBinding binding;
 
-    private ClipboardManager myClipboard;
-    private ClipData myClip;
-
     private String amazonLink;
     private String opener;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +76,11 @@ public class BookToday extends AppCompatActivity {
         DatabaseReference databaseToday = FirebaseDatabase.getInstance().getReference()
                 .child("Books").child(today);
 
-        Utils.databaseMethod actionTitle = (title) -> binding.book0Title.setText(title);
+        Utils.databaseMethod actionTitle = (title) -> binding.bookTodayTitle.setText(title);
         Utils.doFromDatabase(databaseToday, "title", actionTitle);
 
         Utils.databaseMethod actionAuthor = (author) ->
-                binding.book0Author.setText("by " + author);
+                binding.bookTodayAuthor.setText(getString(R.string.written_by, author));
         Utils.doFromDatabase(databaseToday, "author", actionAuthor);
 
         Utils.databaseMethod actionCover = (imageUri) ->
@@ -102,18 +98,18 @@ public class BookToday extends AppCompatActivity {
     public void close(View view) {
         Intent readerIntent = new Intent(getApplicationContext(), Reader.class);
         String today = LocalDate.now().format(Utils.dateFormatInternal);
-        readerIntent.putExtra("DAY", today);
+        readerIntent.putExtra(getString(R.string.DAY), today);
         startActivity(readerIntent);
         finish();
     }
 
     private void clipboard() {
-        myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        String text = getString(R.string.share_book, opener);
+        ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        String text = getString(R.string.today_book_share, opener);
 
-        myClip = ClipData.newPlainText("text", text);
+        ClipData myClip = ClipData.newPlainText("text", text);
         myClipboard.setPrimaryClip(myClip);
-        Toast.makeText(this, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.copied), Toast.LENGTH_SHORT).show();
     }
 
     private void open_link() {
