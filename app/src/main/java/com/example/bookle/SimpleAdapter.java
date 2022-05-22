@@ -98,7 +98,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     public void addItem(int position) {
         final int id = mCurrentItemId++;
-        mItems.add(position, id);
+        mItems.set(position, id);
         notifyItemInserted(position);
     }
 

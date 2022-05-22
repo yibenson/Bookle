@@ -61,6 +61,7 @@ Nullam eget urna semper, eleifend est et, luctus metus. Nam suscipit mollis puru
     <!-- End guess dialog -->
 
     <string name="bookshelf_section">"%1$s to %2$s"</string>
+    <string name="first_bookshelf_section">"This Week"</string>
     <string name="week_loading">Week loading</string>
 
     <!-- Intent extras names -->
