@@ -30,6 +30,7 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         super.onCreate(savedInstanceState);
         binding = BookshelfBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         RecyclerView mRecyclerView = (RecyclerView) binding.recyclerview;
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
@@ -37,7 +38,6 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         mAdapter = new SimpleAdapter(this, this::onCoverClick, DAY_ZERO);
 
         today = LocalDate.now();
-
         //Number of Bookles so far
         numBooks = mAdapter.getItemCount();
 
@@ -104,9 +104,11 @@ public class Bookshelf extends AppCompatActivity implements SimpleAdapter.Simple
         }
 
         //Add your adapter to the sectionAdapter
-        SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+        SectionedGridRecyclerViewAdapter.Section[] dummy = new
+                SectionedGridRecyclerViewAdapter.Section[sections.size()];
         SectionedGridRecyclerViewAdapter mSectionedAdapter = new
-                SectionedGridRecyclerViewAdapter(this,R.layout.section_header, R.id.header_title,mRecyclerView,mAdapter);
+                SectionedGridRecyclerViewAdapter(this,R.layout.section_header,
+                R.id.header_title,mRecyclerView,mAdapter);
         mSectionedAdapter.setSections(sections.toArray(dummy));
 
         //Apply this adapter to the RecyclerView
