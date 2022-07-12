@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.database.DatabaseReference;
-import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

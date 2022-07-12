@@ -2,17 +2,12 @@ package com.example.bookle;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.bookle.databinding.BookDialogBinding;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class BookDialog extends AppCompatActivity {
 

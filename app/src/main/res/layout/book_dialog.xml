@@ -44,14 +44,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="680dp"
+        android:clipToPadding="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/bookle_msg"
             android:layout_width="331dp"
             android:layout_height="44dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
             android:maxLines="1"
@@ -64,47 +66,48 @@
         <View
             android:id="@+id/cover_background"
             android:layout_width="332dp"
-            android:layout_height="461dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/cover_background"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:foregroundGravity="top"
+            app:layout_constraintBottom_toTopOf="@id/amazon_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/bookle_msg" />
 
         <TextView
             android:id="@+id/book_dialog_title"
-            android:layout_width="297dp"
-            android:layout_height="48dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
-            android:maxLines="1"
             android:text="@string/title_loading"
             android:textAppearance="@style/title"
             app:layout_constraintBottom_toTopOf="@+id/book_dialog_cover"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
-            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="@+id/cover_background"
-            app:layout_constraintTop_toTopOf="@+id/cover_background"
-            app:layout_constraintVertical_bias="0.68" />
+            app:layout_constraintTop_toTopOf="@+id/cover_background" />
 
         <ImageView
             android:id="@+id/book_dialog_cover"
-            android:layout_width="206dp"
-            android:layout_height="302dp"
+            android:layout_width="250dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/book_cover_desc"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_background"
+            app:layout_constraintBottom_toTopOf="@id/book_dialog_author"
             app:layout_constraintEnd_toEndOf="@+id/cover_background"
             app:layout_constraintStart_toStartOf="@+id/cover_background"
-            app:layout_constraintTop_toTopOf="@+id/cover_background"
-            app:layout_constraintVertical_bias="0.503" />
+            app:layout_constraintTop_toBottomOf="@id/book_dialog_title" />
 
         <TextView
             android:id="@+id/book_dialog_author"
-            android:layout_width="252dp"
-            android:layout_height="43dp"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:autoSizeTextType="uniform"
             android:gravity="center_horizontal|top"
-            android:maxLines="1"
             android:text="@string/author_loading"
             android:textAppearance="@style/author"
             app:layout_constraintBottom_toBottomOf="@+id/cover_background"
@@ -118,7 +121,8 @@
             android:layout_width="124dp"
             android:layout_height="50dp"
             android:layout_marginStart="108dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/amazon_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +133,7 @@
             android:id="@+id/share_button"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:background="@drawable/ic_baseline_share_24"
+            android:background="@drawable/ic_outline_share_24"
             android:contentDescription="@string/share_button_desc"
             app:layout_constraintBottom_toBottomOf="@+id/amazon_button"
             app:layout_constraintEnd_toEndOf="parent"

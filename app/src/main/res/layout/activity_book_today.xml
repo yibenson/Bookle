@@ -133,7 +133,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/ic_baseline_share_24"
+        android:background="@drawable/ic_outline_share_24"
         app:layout_constraintStart_toEndOf="@+id/amazon_button"
         app:layout_constraintTop_toBottomOf="@+id/cover_background" />
 
