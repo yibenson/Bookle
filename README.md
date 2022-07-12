@@ -16,6 +16,11 @@
 We believed that everyone contributed equally to this project since we split the tasks. Benson did the guessing feature and he and Dylan worked on integrating Firebase into our implementation more completely. Lucy worked on the presentation poster as well as implementing feedback from the poster session and the final report. Pranav contributed heavily to writing the final report.
 
 
+## Prototype Video (Link)
+
+https://drive.google.com/file/d/1DZs2GUNHaYqrlKhDNw4CH1P61zCgeuUY/view?usp=sharing
+
+
 ## Problem & Solution Overview
 
 The problem we began with is one familiar to many. Many people have been avid readers at one point in their life, especially childhood. However, many of these same people have found themselves in a place of being both unmotivated and too busy to now read regularly, even if reading was something they once enjoyed.  Our goal then was to make an app that helps people incorporate reading into their busy daily lives. We looked into why that happened through user interviews and found out that the most difficult part of reading was starting and finding a book. Our goal with Bookle was to make this process as easy and fun as possible. We were inspired by Wordle which gained such popularity despite having such a simple premise. Our app delivers a daily excerpt to the user in order to rekindle their passion for reading. The user can customize their reading experience by changing font size and dark or light mode. Also, once they have finished reading their daily excerpt, they can guess the book it is from. We believe this will give the user an additional challenge as well as creating further intrigue for the book. The user can also view the past bookles they completed, and can easily find a way to buy them through our bookshelf feature. Our app solves our problem by making reading a small daily habit, encouraging discovery, and being fun and easy to use. 
@@ -209,7 +214,3 @@ To process Image URLs, which we used for book covers, we used Picasso, “A powe
 
 [https://github.com/square/picasso](https://github.com/square/picasso) 
 
-
-## Prototype Video (Link)
-
-https://drive.google.com/file/d/1DZs2GUNHaYqrlKhDNw4CH1P61zCgeuUY/view?usp=sharing
